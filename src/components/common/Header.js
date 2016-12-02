@@ -1,5 +1,5 @@
-import React, {Component} from 'react';
-import Greeting from '../common/Greeting';
+import React, {Component} from 'react'
+import Greeting from '../common/Greeting'
 
 export default class Header extends Component {
     render() {
@@ -9,6 +9,6 @@ export default class Header extends Component {
                 <Greeting user={this.props.user}/>
                 {this.props.children}
             </div>
-        );
+        )
     }
 }

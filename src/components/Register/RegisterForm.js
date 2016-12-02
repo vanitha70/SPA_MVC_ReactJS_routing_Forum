@@ -1,8 +1,9 @@
-import React, {Component} from 'react';
+import React, {Component} from 'react'
 
 export default class RegisterForm extends Component {
     render() {
         return (
+            <main>
             <form onSubmit={this.props.onSubmitHandler}>
                 <div className="form-group">
                     <label>Username:</label>
@@ -39,6 +40,7 @@ export default class RegisterForm extends Component {
                 </div>
                 <input className="btn btn-default" type="submit" value="Register" disabled={this.props.submitDisabled}/>
             </form>
-        );
+            </main>
+        )
     }
 }

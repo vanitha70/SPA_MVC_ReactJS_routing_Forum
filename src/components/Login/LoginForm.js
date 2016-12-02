@@ -1,9 +1,10 @@
-import React, {Component} from 'react';
+import React, {Component} from 'react'
 
 export default class LoginForm extends Component {
     render() {
         return (
-            <form onSubmit={this.props.onSubmitHandler}>
+            <main>
+                <form onSubmit={this.props.onSubmitHandler}>
                 <div className="form-group">
                     <label>Username:</label>
                     <input
@@ -28,6 +29,7 @@ export default class LoginForm extends Component {
                 </div>
                 <input className="btn btn-default" type="submit" value="Login" disabled={this.props.submitDisabled}/>
             </form>
-        );
+        </main>
+        )
     }
 }
