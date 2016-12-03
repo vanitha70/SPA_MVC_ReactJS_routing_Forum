@@ -25,4 +25,14 @@ export default class Post {
 			callback(true)
 		}
 	}
+
+    getAllPosts(callback) {
+        requester.get(kinvey.getCollectionModuleUrl(), auth.getHeaders())
+            .then(listAllPostsSuccess);
+
+        function listAllPostsSuccess(postInfo) {
+            observer.showSuccess('Posts loaded!');
+            callback(postInfo)
+        }
+    }
 }
