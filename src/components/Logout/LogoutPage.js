@@ -1,5 +1,6 @@
 import React, {Component} from 'react'
-import {logout} from '../../models/user'
+import User from '../../models/user'
+let user = new User();
 
 export default class LogoutPage extends Component {
     constructor(props) {
@@ -8,7 +9,7 @@ export default class LogoutPage extends Component {
     }
 
     logout() {
-        logout(this.onSubmitResponse.bind(this))
+        user.logout(this.onSubmitResponse.bind(this))
     }
 
     onSubmitResponse(response) {

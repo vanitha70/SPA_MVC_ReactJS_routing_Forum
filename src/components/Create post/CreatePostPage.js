@@ -1,6 +1,7 @@
 import React, {Component} from 'react'
 import RegisterForm from './CreatePostForm'
-import {createPost} from '../../models/postModel'
+import Post from '../../models/postModel'
+let post = new Post();
 
 export default class CreatePostPage extends Component {
     constructor(props) {
@@ -36,7 +37,7 @@ export default class CreatePostPage extends Component {
             return
         }
         this.setState({ submitDisabled: true })
-        createPost(this.state.title, this.state.body, sessionStorage.getItem('username'), this.onSubmitResponse)
+        post.createPost(this.state.title, this.state.body, sessionStorage.getItem('username'), this.onSubmitResponse)
     }
 
     onSubmitResponse(response) {

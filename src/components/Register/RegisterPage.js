@@ -1,11 +1,12 @@
 import React, {Component} from 'react'
 import RegisterForm from './RegisterForm'
-import {register} from '../../models/user'
+import User from '../../models/user'
+let user = new User();
 
 export default class RegisterPage extends Component {
     constructor(props) {
-        super(props)
-        this.state = { username: '', password: '', repeat: '', submitDisabled: false }
+        super(props);
+        this.state = { username: '', password: '', repeat: '', submitDisabled: false };
         this.bindEventHandlers()
     }
 
@@ -39,7 +40,7 @@ export default class RegisterPage extends Component {
             return
         }
         this.setState({ submitDisabled: true })
-        register(this.state.username, this.state.password, this.onSubmitResponse)
+        user.register(this.state.username, this.state.password, this.onSubmitResponse)
     }
 
     onSubmitResponse(response) {

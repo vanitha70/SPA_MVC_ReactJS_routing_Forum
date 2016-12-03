@@ -1,6 +1,7 @@
 import React, {Component} from 'react'
 import LoginForm from './LoginForm'
-import {login} from '../../models/user'
+import User from '../../models/user'
+let user = new User();
 
 export default class LoginPage extends Component {
     constructor(props) {
@@ -32,7 +33,7 @@ export default class LoginPage extends Component {
     onSubmitHandler(event) {
         event.preventDefault()
         this.setState({ submitDisabled: true })
-        login(this.state.username, this.state.password, this.onSubmitResponse)
+        user.login(this.state.username, this.state.password, this.onSubmitResponse)
     }
 
     onSubmitResponse(response) {

@@ -1,22 +1,28 @@
-import * as requester from './requester'
+import Requester from './requester';
+import Kinvey from '../services/kinveyService';
+import AuthenticationService from '../services/authenticationService';
 import observer from './observer'
 
+let requester = new Requester();
+let kinvey = new Kinvey();
+let auth =
+	new AuthenticationService(kinvey.getKinveyAppKey(), kinvey.getKinveySecret());
 
-function createPost(title, body, author, callback) {
-    let postData = {
-        title,
-        body,
-        author
-    }
+export default class Post {
 
-    requester.post('appdata', 'posts', postData, 'kinvey')
-        .then(createPostSuccess)
+	createPost(title, body, author, callback) {
+		let postData = {
+			title,
+			body,
+			author
+		};
 
-    function createPostSuccess(postInfo) {
-        observer.showSuccess('Successful post created.')
-        callback(true)
-    }
+		requester.post(kinvey.getCollectionModuleUrl(), auth.getHeaders(), postData)
+			.then(createPostSuccess);
+
+		function createPostSuccess(postInfo) {
+			observer.showSuccess('Successful post created.');
+			callback(true)
+		}
+	}
 }
-
-
-export {createPost}
