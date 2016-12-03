@@ -5,7 +5,7 @@ export default class CreateForm extends Component {
         return (
 	        <form className="form-horizontal" onSubmit={this.props.onSubmitHandler}>
                 <div className="form-group">
-                    <label className="col-md-5 control-label">Post title:</label>
+                    <label className="col-md-5 control-label">Post Title:</label>
 	                <div className="col-md-3">
                         <input
                             className="form-control"
