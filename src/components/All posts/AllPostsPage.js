@@ -1,12 +1,28 @@
 import React, {Component} from 'react'
 import Post from '../../models/postModel'
+import Pager from 'react-pager';
 let postModule = new Post();
 
 export default class AllPostsPage extends Component {
     constructor(props) {
         super(props)
-        this.state = { posts: []}
+        this.state = {
+            posts: [],
+            pagePosts: [],
+            total:       0,
+            current:     0,
+            visiblePage: 5
+        }
         this.bindEventHandlers()
+        this.handlePageChanged = this.handlePageChanged.bind(this);
+    }
+
+    handlePageChanged(newPage) {
+        this.setState({
+            current: newPage,
+            total: Math.ceil(this.state.posts.length / 5),
+            pagePosts: this.state.posts.slice(newPage * this.state.visiblePage , (newPage * this.state.visiblePage)+5)
+        })
     }
 
     bindEventHandlers() {
@@ -19,7 +35,11 @@ export default class AllPostsPage extends Component {
     }
 
     onLoadSuccess(response) {
-        this.setState({ posts: response})
+        this.setState({
+            posts: response,
+            pagePosts: response.slice(this.state.current * this.state.visiblePage, (this.state.current * this.state.visiblePage) + 5),
+            total: Math.ceil(response.length / 5)
+        })
     }
 
     action(post,userId){
@@ -36,14 +56,20 @@ export default class AllPostsPage extends Component {
 
     onActionResponse(response,id) {
         if (response === true) {
-           let index = this.state.posts.findIndex(p=>p._id===id)
-           this.state.posts.splice(index,1)
-           this.setState({posts:this.state.posts})
+            let index = this.state.posts.findIndex(p=>p._id===id)
+            this.state.posts.splice(index,1)
+            this.setState({posts:this.state.posts})
+            if(this.state.pagePosts.length > 1) {
+                this.handlePageChanged(this.state.current)
+            } else {
+                this.handlePageChanged(0)
+            }
         }
     }
 
     render() {
-        let postRows = this.state.posts.map(post =>
+
+        let postRows = this.state.pagePosts.map(post =>
             <tr key={post._id}>
                 <td>{post.title}</td>
                 <td>{post.body}</td>
@@ -68,6 +94,13 @@ export default class AllPostsPage extends Component {
                     {postRows}
                     </tbody>
                 </table>
+                <Pager
+                    total={this.state.total}
+                    current={this.state.current}
+                    visiblePages={this.state.visiblePage}
+                    titles={{ first: '<|', last: '>|' }}
+                    onPageChanged={this.handlePageChanged}
+                />
             </div>
         )
     }
