@@ -48,9 +48,10 @@ export default class LoginPage extends Component {
 
     render() {
         return (
-            <main>
-            <div>
-                <span>Login Page</span>
+	        <div className="row">
+		        <div className="page-header text-center">
+			        <h2>Login</h2>
+		        </div>
                 <LoginForm
                     username={this.state.username}
                     password={this.state.password}
@@ -59,7 +60,6 @@ export default class LoginPage extends Component {
                     onSubmitHandler={this.onSubmitHandler}
                 />
             </div>
-            </main>
         )
     }
 }

@@ -1,5 +1,5 @@
 import React, {Component} from 'react'
-import RegisterForm from './CreatePostForm'
+import CreateForm from './CreatePostForm'
 import Post from '../../models/postModel'
 let post = new Post();
 
@@ -52,9 +52,11 @@ export default class CreatePostPage extends Component {
 
     render() {
         return (
-            <div>
-                <span>Create Post Page</span>
-                <RegisterForm
+	        <div className="row">
+		        <div className="page-header text-center">
+			        <h2>Create Post</h2>
+		        </div>
+                <CreateForm
                     title={this.state.title}
                     content={this.state.body}
                     submitDisabled={this.state.submitDisabled}
