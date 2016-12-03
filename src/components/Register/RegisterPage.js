@@ -39,6 +39,10 @@ export default class RegisterPage extends Component {
             alert("Passwords don't match")
             return
         }
+        if(this.state.username === ''||this.state.password === ''){
+            alert("Please fill in all fields in order to proceed with your registration!")
+            return;
+        }
         this.setState({ submitDisabled: true })
         user.register(this.state.username, this.state.password, this.onSubmitResponse)
     }
