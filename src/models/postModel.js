@@ -9,6 +9,13 @@ let auth =
 	new AuthenticationService(kinvey.getKinveyAppKey(), kinvey.getKinveySecret());
 
 export default class Post {
+	constructor(){
+		this.bindEventHandlers()
+	}
+
+	bindEventHandlers() {
+		this.initializeRating.bind(this)
+	}
 
 	createPost(title, body, author, callback) {
 		let postData = {
@@ -17,17 +24,27 @@ export default class Post {
 			author
 		};
 
-		requester.post(kinvey.getCollectionModuleUrl(), auth.getHeaders(), postData)
+		requester.post(kinvey.getCollectionModuleUrl('posts'), auth.getHeaders(), postData)
 			.then(createPostSuccess);
 
 		function createPostSuccess(postInfo) {
+			this.initializeRating(postInfo._id, 0)
 			observer.showSuccess('Successful post created.')
 			callback(true)
 		}
 	}
 
+	initializeRating(postId, rating){
+		let ratingData = {
+			postId,
+			rating
+		}
+
+		requester.post(kinvey.getCollectionModuleUrl('rating'), auth.getHeaders(), ratingData)
+	}
+
 	deletePost(postId,callback){
-		requester.delete(kinvey.getCollectionModuleUrl()+'/'+postId,auth.getHeaders())
+		requester.delete(kinvey.getCollectionModuleUrl('posts')+'/'+postId,auth.getHeaders())
 			.then(() => {
             observer.showSuccess('Post deleted.')
             callback(true,postId)
@@ -36,7 +53,7 @@ export default class Post {
 	}
 
     getAllPosts(callback) {
-        requester.get(kinvey.getCollectionModuleUrl(), auth.getHeaders())
+        requester.get(kinvey.getCollectionModuleUrl('posts'), auth.getHeaders())
             .then(listAllPostsSuccess)
 
         function listAllPostsSuccess(postInfo) {
@@ -54,5 +71,4 @@ export default class Post {
 			callback(postsInfo)
         }
 	}
-
 }

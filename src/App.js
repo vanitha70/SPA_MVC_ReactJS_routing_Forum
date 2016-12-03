@@ -52,7 +52,7 @@ class App extends Component {
 
         return (
             <div className="container">
-                <Header loggedIn={this.state.loggedIn} user={this.state.username}>
+                <Header loggedIn={this.state.loggedIn} user={this.state.username} href="/profile">
                     {navbar}
                 </Header>
                 {this.props.children}
