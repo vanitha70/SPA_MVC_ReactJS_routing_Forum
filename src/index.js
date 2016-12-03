@@ -9,6 +9,7 @@ import About from './components/About/AboutPage';
 import Login from './components/Login/LoginPage';
 import Register from './components/Register/RegisterPage';
 import Logout from './components/Logout/LogoutPage';
+import CreatePostPage from './components/Create post/CreatePostPage';
 
 ReactDOM.render(
     <Router history={browserHistory}>
@@ -17,6 +18,7 @@ ReactDOM.render(
             <Route path="about" component={About}/>
             <Route path="login" component={Login}/>
             <Route path="register" component={Register}/>
+            <Route path="createPost" component={CreatePostPage}/>
             <Route path="logout" component={Logout}/>
         </Route>
     </Router>,
