@@ -57,12 +57,12 @@ export default class Post {
             body: body,
 			author: author
         };
-        requester.put(kinvey.getCollectionModuleUrl()+'/'+postId, auth.getHeaders(), postData)
+        requester.put(kinvey.getCollectionModuleUrl('posts')+'/'+postId, auth.getHeaders(), postData)
             .then(callback(true));
     }
 
 	loadPostDetails(postId, onPostSuccess) {
-        requester.get(kinvey.getCollectionModuleUrl()+'/'+postId, auth.getHeaders())
+        requester.get(kinvey.getCollectionModuleUrl('posts')+'/'+postId, auth.getHeaders())
             .then(onPostSuccess);
     }
 
