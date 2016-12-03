@@ -1,6 +1,6 @@
 import React, {Component} from 'react'
 import Post from '../../models/postModel'
-let post = new Post();
+let postModule = new Post();
 
 export default class Profile extends Component {
     constructor(props) {
@@ -11,14 +11,35 @@ export default class Profile extends Component {
 
     bindEventHandlers() {
         this.onLoadSuccess = this.onLoadSuccess.bind(this);
+        this.onActionResponse=this.onActionResponse.bind(this);
     }
 
     componentDidMount() {
-        post.getPostsById(this.onLoadSuccess)
+        postModule.getPostsById(this.onLoadSuccess)
     }
 
     onLoadSuccess(response) {
         this.setState({ posts: response })
+    }
+
+    action(post,userId){
+        if(post._acl.creator===userId){
+            return <td><input type="button"value="Delete"onClick={
+                ()=>this.onActionHandler(post)}/></td>
+        }
+        return <td></td>
+    }
+
+    onActionHandler(post) {
+        postModule.deletePost(post._id,this.onActionResponse)
+    }
+
+    onActionResponse(response,id) {
+        if (response === true) {
+            let index = this.state.posts.findIndex(p=>p._id===id)
+            this.state.posts.splice(index,1)
+            this.setState({posts:this.state.posts})
+        }
     }
 
     render() {
@@ -28,6 +49,7 @@ export default class Profile extends Component {
                 <td>{post.body}</td>
                 <td></td>
                 <td></td>
+                {this.action(post,sessionStorage.userId)}
             </tr>
         );
 

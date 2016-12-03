@@ -21,17 +21,26 @@ export default class Post {
 			.then(createPostSuccess);
 
 		function createPostSuccess(postInfo) {
-			observer.showSuccess('Successful post created.');
+			observer.showSuccess('Successful post created.')
 			callback(true)
 		}
 	}
 
+	deletePost(postId,callback){
+		requester.delete(kinvey.getCollectionModuleUrl()+'/'+postId,auth.getHeaders())
+			.then(() => {
+            observer.showSuccess('Post deleted.')
+            callback(true,postId)
+        });
+
+	}
+
     getAllPosts(callback) {
         requester.get(kinvey.getCollectionModuleUrl(), auth.getHeaders())
-            .then(listAllPostsSuccess);
+            .then(listAllPostsSuccess)
 
         function listAllPostsSuccess(postInfo) {
-            observer.showSuccess('Posts loaded!');
+            observer.showSuccess('Posts loaded!')
             callback(postInfo)
         }
     }
