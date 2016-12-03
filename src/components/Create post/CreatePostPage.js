@@ -1,6 +1,7 @@
 import React, {Component} from 'react'
 import CreateForm from './CreatePostForm'
 import Post from '../../models/postModel'
+import observer from '../../models/observer'
 let post = new Post();
 
 export default class CreatePostPage extends Component {
@@ -33,7 +34,7 @@ export default class CreatePostPage extends Component {
     onSubmitHandler(event) {
         event.preventDefault()
         if (this.state.title.length < 5 || this.state.body < 5) {
-            alert("Title and content must consist at least 5 digits")
+            observer.showError("Title and content must consist at least 5 digits")
             return
         }
         this.setState({ submitDisabled: true })

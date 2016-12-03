@@ -12,6 +12,7 @@ import Logout from './components/Logout/LogoutPage';
 import CreatePostPage from './components/Create post/CreatePostPage';
 import AllPostsPage from './components/All posts/AllPostsPage';
 import Profile from './components/Profile/ProfilePage';
+import Edit from './components/Edit/EditPage';
 
 ReactDOM.render(
     <Router history={browserHistory}>
@@ -22,6 +23,7 @@ ReactDOM.render(
             <Route path="register" component={Register}/>
             <Route path="createPost" component={CreatePostPage}/>
             <Route path="allPosts" component={AllPostsPage}/>
+            <Route path="edit/:postId" component={Edit}/>
             <Route path="logout" component={Logout}/>
             <Route path="profile" component={Profile}/>
         </Route>

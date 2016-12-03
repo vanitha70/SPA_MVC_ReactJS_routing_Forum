@@ -49,15 +49,29 @@ export default class Post {
             observer.showSuccess('Post deleted.')
             callback(true,postId)
         });
-
 	}
+
+    editPost(postId, title, body, author, callback) {
+        let postData = {
+            title: title,
+            body: body,
+			author: author
+        };
+        requester.put(kinvey.getCollectionModuleUrl()+'/'+postId, auth.getHeaders(), postData)
+            .then(callback(true));
+    }
+
+	loadPostDetails(postId, onPostSuccess) {
+        requester.get(kinvey.getCollectionModuleUrl()+'/'+postId, auth.getHeaders())
+            .then(onPostSuccess);
+    }
 
     getAllPosts(callback) {
         requester.get(kinvey.getCollectionModuleUrl('posts'), auth.getHeaders())
             .then(listAllPostsSuccess)
 
         function listAllPostsSuccess(postInfo) {
-            observer.showSuccess('Posts loaded!')
+            //observer.showSuccess('Posts loaded!')
             callback(postInfo)
         }
     }
