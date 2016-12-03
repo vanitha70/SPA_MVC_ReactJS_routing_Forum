@@ -1,5 +1,5 @@
 import React, {Component} from 'react'
-import User from '../../models/user'
+import User from '../../models/userModel'
 let user = new User();
 
 export default class LogoutPage extends Component {

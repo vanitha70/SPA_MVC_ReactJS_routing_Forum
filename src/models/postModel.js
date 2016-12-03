@@ -1,4 +1,4 @@
-import Requester from './requester';
+import Requester from './requestModel';
 import Kinvey from '../services/kinveyService';
 import AuthenticationService from '../services/authenticationService';
 import observer from './observer'
