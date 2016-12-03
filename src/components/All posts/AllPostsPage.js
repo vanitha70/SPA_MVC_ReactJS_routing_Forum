@@ -1,6 +1,7 @@
 import React, {Component} from 'react'
 import Post from '../../models/postModel'
 import Pager from 'react-pager';
+import {Link} from 'react-router'
 let postModule = new Post();
 
 export default class AllPostsPage extends Component {
@@ -27,7 +28,7 @@ export default class AllPostsPage extends Component {
 
     bindEventHandlers() {
         this.onLoadSuccess = this.onLoadSuccess.bind(this);
-        this.onActionResponse=this.onActionResponse.bind(this);
+        this.onDeleteResponse=this.onDeleteResponse.bind(this);
     }
 
     componentDidMount() {
@@ -43,18 +44,23 @@ export default class AllPostsPage extends Component {
     }
 
     action(post,userId){
+        let path = 'edit/'+post._id
         if(post._acl.creator===userId){
-            return <td><input type="button"value="Delete"onClick={
-                ()=>this.onActionHandler(post)}/></td>
+            return (
+                <td>
+                    <input type="button"value="Delete"onClick={()=> this.onActionHandler(post)}/>
+                    <Link to={path} className="btn btn-default" activeClassName="btn btn-default active">Edit</Link>
+                </td>
+            )
         }
         return <td></td>
     }
 
     onActionHandler(post) {
-        postModule.deletePost(post._id,this.onActionResponse)
+        postModule.deletePost(post._id,this.onDeleteResponse)
     }
 
-    onActionResponse(response,id) {
+    onDeleteResponse(response,id) {
         if (response === true) {
             let index = this.state.posts.findIndex(p=>p._id===id)
             this.state.posts.splice(index,1)
@@ -68,7 +74,6 @@ export default class AllPostsPage extends Component {
     }
 
     render() {
-
         let postRows = this.state.pagePosts.map(post =>
             <tr key={post._id}>
                 <td>{post.title}</td>
