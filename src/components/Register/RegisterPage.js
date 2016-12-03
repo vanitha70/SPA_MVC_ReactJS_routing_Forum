@@ -1,6 +1,6 @@
 import React, {Component} from 'react'
 import RegisterForm from './RegisterForm'
-import User from '../../models/user'
+import User from '../../models/userModel'
 let user = new User();
 
 export default class RegisterPage extends Component {
