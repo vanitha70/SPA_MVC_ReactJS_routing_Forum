@@ -35,4 +35,15 @@ export default class Post {
             callback(postInfo)
         }
     }
+
+    getPostsById(callback){
+		requester.get(kinvey.getQueryUrl(), auth.getHeaders())
+			.then(listUsersPostsSuccess)
+
+		function listUsersPostsSuccess(postsInfo) {
+			// observer.showSuccess('')
+			callback(postsInfo)
+        }
+	}
+
 }

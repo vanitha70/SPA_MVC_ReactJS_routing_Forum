@@ -27,4 +27,8 @@ export default class Kinvey {
 	getCollectionModuleUrl() {
 		return `https://baas.kinvey.com/appdata/${this.getKinveyAppKey()}/posts`;
 	}
+
+	getQueryUrl() {
+		return  `https://baas.kinvey.com/appdata/${this.getKinveyAppKey()}/posts?query={"_acl":{"creator": "${sessionStorage.getItem('userId')}"}}`
+	}
 }
