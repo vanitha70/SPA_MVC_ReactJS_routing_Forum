@@ -64,7 +64,8 @@ export default class EditPage extends Component {
     onSubmitResponse(response) {
         if (response === true) {
             // Navigate away from login page
-            browserHistory.push('/posts')
+            this.context.router.push('/posts');
+            //browserHistory.push('/posts')
             observer.showSuccess('Post edited.')
         } else {
             // Something went wrong, let the user try again
