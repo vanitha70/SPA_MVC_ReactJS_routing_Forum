@@ -33,19 +33,19 @@ class App extends Component {
                     <Navbar>
                         <Link to="/" className="btn btn-default" activeClassName="btn btn-default active" onlyActiveOnIndex={true}>Home</Link>
                         <Link to="/about" className="btn btn-default" activeClassName="btn btn-default active">About</Link>
-                        <Link to="/login" className="btn btn-default" activeClassName="btn btn-default active">Login</Link>
-                        <Link to="/register" className="btn btn-default" activeClassName="btn btn-default active">Register</Link>
+                        <Link to="/account/login" className="btn btn-default" activeClassName="btn btn-default active">Login</Link>
+                        <Link to="/account/register" className="btn btn-default" activeClassName="btn btn-default active">Register</Link>
                     </Navbar>
                 )
         } else {
             navbar = (
                 <Navbar>
                     <Link to="/" className="btn btn-default" activeClassName="btn btn-default active" onlyActiveOnIndex={true}>Home</Link>
-                    <Link to="/createPost" className="btn btn-default" activeClassName="btn btn-default active">Create post</Link>
-                    <Link to="/allPosts" id="allPosts" className="btn btn-default" activeClassName="btn btn-default active">All posts</Link>
+                    <Link to="/posts/create" className="btn btn-default" activeClassName="btn btn-default active">Create post</Link>
+                    <Link to="/posts" id="allPosts" className="btn btn-default" activeClassName="btn btn-default active">All posts</Link>
                     <Link to="/about" className="btn btn-default" activeClassName="btn btn-default active">About</Link>
                     <Link to="/logout" className="btn btn-default" activeClassName="btn btn-default active">Logout</Link>
-                    <Link to="/profile" className="btn btn-default" activeClassName="btn btn-default active">Hello, {this.state.username}</Link>
+                    <Link to="/account/profile" className="btn btn-default" activeClassName="btn btn-default active">Hello, {this.state.username}</Link>
                 </Navbar>
             )
         }

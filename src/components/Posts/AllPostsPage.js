@@ -44,8 +44,8 @@ export default class AllPostsPage extends Component {
     }
 
     action(post,userId){
-        let pathEdit = 'edit/'+post._id
-        let pathDetails = 'details/'+post._id
+        let pathEdit = 'posts/edit/'+post._id
+        let pathDetails = 'posts/details/'+post._id
         if(post._acl.creator===userId){
             return (
                 <td>

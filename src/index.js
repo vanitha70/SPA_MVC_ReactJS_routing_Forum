@@ -20,14 +20,14 @@ ReactDOM.render(
         <Route path="/" component={App}>
             <IndexRoute component={HomePage}/>
             <Route path="about" component={About}/>
-            <Route path="login" component={Login}/>
-            <Route path="register" component={Register}/>
-            <Route path="createPost" component={CreatePostPage}/>
-            <Route path="allPosts" component={AllPostsPage}/>
-            <Route path="edit/:postId" component={Edit}/>
-            <Route path="details/:postId" component={Details}/>
+            <Route path="account/login" component={Login}/>
+            <Route path="account/register" component={Register}/>
+            <Route path="posts/create" component={CreatePostPage}/>
+            <Route path="posts" component={AllPostsPage}/>
+            <Route path="posts/edit/:postId" component={Edit}/>
+            <Route path="posts/details/:postId" component={Details}/>
             <Route path="logout" component={Logout}/>
-            <Route path="profile" component={Profile}/>
+            <Route path="account/profile" component={Profile}/>
         </Route>
     </Router>,
     document.getElementById('root')

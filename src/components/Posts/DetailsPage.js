@@ -36,14 +36,13 @@ export default class DetailsPage extends Component {
     }
 
     onDeleteResponse(response,id) {
-        console.log('hellooo')
         if (response === true) {
-            browserHistory.push('/allPosts')
+            browserHistory.push('/posts')
         }
     }
 
     action(post,userId){
-        let pathEdit = 'edit/'+post._id
+        let pathEdit = 'posts/edit/'+post._id
         if(post._acl.creator===userId){
             return (
                 <td>

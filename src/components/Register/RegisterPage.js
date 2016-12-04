@@ -66,7 +66,7 @@ export default class RegisterPage extends Component {
         if (response === true) {
             // Navigate away from register page
 	        this.close()
-	        this.context.router.push('/allPosts')
+	        this.context.router.push('/posts')
         } else {
             // Something went wrong, let the user try again
             this.setState({ submitDisabled: true })

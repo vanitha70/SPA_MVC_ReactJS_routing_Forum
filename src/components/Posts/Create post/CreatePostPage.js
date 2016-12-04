@@ -44,7 +44,7 @@ export default class CreatePostPage extends Component {
     onSubmitResponse(response) {
         if (response === true) {
             // Navigate away from createPost page
-            this.context.router.push('/allPosts')
+            this.context.router.push('/posts')
         } else {
             // Something went wrong, let the user try again
             this.setState({ submitDisabled: true })
