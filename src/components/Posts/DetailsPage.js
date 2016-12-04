@@ -11,8 +11,8 @@ export default class DetailsPage extends Component {
                 _acl: {
                     creator: ''
                 }
-            }
-            ,postComments:{}
+            },
+            postComments:[]
         }
         this.bindEventHandlers()
     }
@@ -23,8 +23,8 @@ export default class DetailsPage extends Component {
         this.onActionHandler = this.onActionHandler.bind(this)
     }
 
-    onLoadSuccess(response) {
-        this.setState({post: response,});
+    onLoadSuccess(response,comment) {
+        this.setState({post: response});
     }
 
     componentDidMount() {
@@ -46,44 +46,28 @@ export default class DetailsPage extends Component {
         let pathAddComment = '/comments/'+post._id;
         if(post._acl.creator===userId){
             return (
-                <td>
-                    <input type="button"value="Delete"onClick={()=> this.onActionHandler(post)}/>
+                <div>
+                    <Link to={pathAddComment} className="btn btn-success">Add Comment</Link>
                     <Link to={pathEdit} className="btn btn-default" activeClassName="btn btn-default active">Edit</Link>
-                    <Link to={pathAddComment} className="btn btn-danger">Add Comment</Link>
-                </td>
+                    <input className="btn btn-danger" type="button"value="Delete"onClick={()=> this.onActionHandler(post)}/>
+                </div>
             )
         }
         return (
-            <td>
-                <Link to={pathAddComment} className="btn btn-danger">Add Comment</Link>
-            </td>
+            <div>
+                <Link to={pathAddComment} className="btn btn-success">Add Comment</Link>
+            </div>
         )
     }
 
     render() {
         return (
             <div>
-                <h1>All Posts</h1>
-                <table>
-                    <thead>
-                    <tr>
-                        <th>Title</th>
-                        <th>Body</th>
-                        <th>Author</th>
-                        <th>Rating</th>
-                        <th>Actions</th>
-                    </tr>
-                    </thead>
-                    <tbody>
-                        <tr>
-                            <td>{this.state.post.title}</td>
-                            <td>{this.state.post.body}</td>
-                            <td>{this.state.post.author}</td>
-                            <td>{this.state.post.rating}</td>
-                            {this.action(this.state.post,sessionStorage.userId)}
-                        </tr>
-                    </tbody>
-                </table>
+                <h1>{this.state.post.title}</h1>
+                <h4>published by  <strong>{this.state.post.author}</strong></h4>
+                <div className="panel-body">{this.state.post.body}</div>
+
+                <div>{this.action(this.state.post,sessionStorage.userId)}</div>
             </div>
         )
     }

@@ -1,5 +1,6 @@
 import React, {Component} from 'react'
 import Post from '../../models/postModel'
+import {Link,browserHistory} from 'react-router'
 let postModule = new Post();
 
 export default class Profile extends Component {
@@ -25,8 +26,13 @@ export default class Profile extends Component {
     }
 
     action(post,userId){
+        let pathEdit = 'posts/edit/'+post._id
+        let pathAddComment = '/comments/'+post._id;
         if(post._acl.creator===userId){
-            return <td><input type="button"value="Delete"onClick={
+            return <td>
+                <Link to={pathAddComment} className="btn btn-success">Add Comment</Link>
+                <Link to={pathEdit} className="btn btn-default" activeClassName="btn btn-default active">Edit</Link>
+                <input className="btn btn-danger" type="button"value="Delete"onClick={
                 ()=>this.onActionHandler(post)}/></td>
         }
         return <td></td>
@@ -46,7 +52,7 @@ export default class Profile extends Component {
 
     render() {
         let postRows = this.state.posts.map(post =>
-            <tr key={post._id}>
+            <tr key={post._id}onClick={() => {browserHistory.push('/posts/details/'+post._id)}}>
                 <td>{post.title}</td>
                 <td>{post.body}</td>
                 <td></td>

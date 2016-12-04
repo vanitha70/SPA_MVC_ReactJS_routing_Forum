@@ -26,5 +26,7 @@ export default class Comment{
             callback(true);
         }
     }
-
+    loadAllComments(postId,callback){
+        requester.get(kinvey.getCollectionModuleUrl('comments')+`/?query={"postId":"${postId}"}`,auth.getHeaders());
+    }
 }
