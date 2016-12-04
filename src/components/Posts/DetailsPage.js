@@ -31,7 +31,6 @@ export default class DetailsPage extends Component {
 
     showComments(comments) {
         let asdf = [];
-        console.log(comments);
         if(comments!==undefined) {
             asdf.push(<h2 key={-1}>Comments</h2>);
             for (let i in comments) {

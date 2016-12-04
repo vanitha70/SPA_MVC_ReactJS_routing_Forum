@@ -106,7 +106,8 @@ export default class Post {
     getAllPosts(callback) {
         let actions = [
             requester.get(kinvey.getCollectionModuleUrl('posts'), auth.getHeaders()),
-            requester.get(kinvey.getCollectionModuleUrl('rating'), auth.getHeaders())
+            requester.get(kinvey.getCollectionModuleUrl('rating'), auth.getHeaders()),
+            requester.get(kinvey.getCollectionModuleUrl('categories'), auth.getHeaders()),
         ]
         Promise.all(actions).then(listAllPostsSuccess)
 
@@ -117,7 +118,7 @@ export default class Post {
                 postInfo[i]['rating'] = ratingInfo[i].rating
             }
             postInfo.sort((a,b) => b.rating - a.rating)
-            callback(postInfo)
+            callback(postInfo, data[2])
         }
     }
 
