@@ -15,7 +15,9 @@ export default class Profile extends Component {
     }
 
     componentDidMount() {
-        postModule.getPostsById(this.onLoadSuccess)
+	    postModule.getPostsById(this.onLoadSuccess);
+	    // the above can be achieved with the one below
+	    // postModule.query(`"_acl":{"creator": "${sessionStorage.getItem('userId')}"}`, null, this.onLoadSuccess);
     }
 
     onLoadSuccess(response) {
@@ -52,7 +54,6 @@ export default class Profile extends Component {
                 {this.action(post,sessionStorage.userId)}
             </tr>
         );
-
         return (
             <div>
                 <h1>{this.state.username}</h1>

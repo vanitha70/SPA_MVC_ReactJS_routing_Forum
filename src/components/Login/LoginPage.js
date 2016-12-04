@@ -43,7 +43,6 @@ export default class LoginPage extends Component {
     onSubmitHandler(event) {
         event.preventDefault()
         this.setState({ submitDisabled: true })
-	    console.log(user);
         user.login(this.state.username, this.state.password, this.onSubmitResponse)
     }
 
@@ -62,8 +61,8 @@ export default class LoginPage extends Component {
         return (
 	        <Modal show={this.state.showModal} onHide={this.close}>
 		        <Modal.Header>
-			        <Modal.Title className="text-center">
-				        <h3>Please login</h3>
+			        <Modal.Title componentClass="h2" className="text-center">
+				        Login
 			        </Modal.Title>
 		        </Modal.Header>
 	        <Modal.Body>
