@@ -2,7 +2,7 @@ import React, {Component} from 'react';
 import EditForm from './EditForm';
 import Post from '../../../models/postModel';
 import observer from '../../../models/observer'
-import { browserHistory } from 'react-router'
+
 let post = new Post()
 
 export default class EditPage extends Component {

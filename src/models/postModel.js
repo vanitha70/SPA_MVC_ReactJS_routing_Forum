@@ -2,22 +2,16 @@ import Requester from './requestModel';
 import Kinvey from '../services/kinveyService';
 import AuthenticationService from '../services/authenticationService';
 import observer from './observer'
+import Views from './viewsModel'
 
 let requester = new Requester();
 let kinvey = new Kinvey();
 let auth =
     new AuthenticationService(kinvey.getKinveyAppKey(), kinvey.getKinveySecret());
+let views = new Views()
 
 // TODO: all promises must have catch that displays errors
 export default class Post {
-    /*constructor(){
-     this.bindEventHandlers()
-     }*/
-
-    // bindEventHandlers() {
-    //    this.initializeRating = this.initializeRating.bind(this)
-    //    this.deleteRating = this.deleteRating.bind(this)
-    // }
 
     createPost(title, body, author, category, callback) {
         let postData = {
@@ -28,10 +22,9 @@ export default class Post {
         };
         requester.post(kinvey.getCollectionModuleUrl('posts'), auth.getHeaders(), postData)
             .then(createPostSuccess);
-        let that = this
 
         function createPostSuccess(postInfo) {
-            that.initializeRating(postInfo._id, 0)
+            views.initializeRating(postInfo._id, 0)
             observer.showSuccess('Successful post created.')
             callback(true)
         }
@@ -47,10 +40,9 @@ export default class Post {
     }
 
     deletePost(postId, callback) {
-        let that = this
         requester.delete(kinvey.getCollectionModuleUrl('posts') + '/' + postId, auth.getHeaders())
             .then(() => {
-                that.deleteRating(postId)
+                views.deleteViews(postId)
                 observer.showSuccess('Post deleted.')
                 callback(true, postId)
             });
