@@ -43,19 +43,19 @@ export default class DetailsPage extends Component {
     }
 
     showComments(comments) {
-        let asdf = []
+        let commentsToPrint = [];
         if(comments!==undefined) {
-            asdf.push(<h2 key={-1}>Comments</h2>);
+            commentsToPrint.push(<h2 key={-1}>Comments</h2>);
             for (let i in comments) {
                 if (comments !== []) {
-                    asdf.push(<div key={i}>{comments[i].text} by <strong key={i}>{comments[i].author}</strong> on
+                    commentsToPrint.push(<div key={i}>{comments[i].text} by <strong key={i}>{comments[i].author}</strong> on
                             {comments[i]._kmd.lmt.slice(0, 16).replace('T', '-')} {this.deleteCommentAction(comments[i], sessionStorage.userId)}
                         </div>)
 
                 }
             }
         }
-        return asdf
+        return commentsToPrint
     }
 
     onActionHandler(post) {
