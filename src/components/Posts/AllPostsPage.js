@@ -11,6 +11,7 @@ export default class AllPostsPage extends Component {
         this.state = {
             posts: [],
             pagePosts: [],
+            categories: [],
             total:       0,
             current:     0,
             visiblePage: 5
@@ -48,12 +49,16 @@ export default class AllPostsPage extends Component {
     }
 
     render() {
+        this.state.pagePosts.sort((a,b) => {
+            return b._kmd.lmt.localeCompare(a._kmd.lmt)
+        })
         let postRows = this.state.pagePosts.map(post =>
-        <tr key={post._id} onClick={() => {browserHistory.push('posts/details/'+post._id)}}>
+            <tr key={post._id} onClick={() => {browserHistory.push('posts/details/'+post._id)}}>
                 <td>{post.title}</td>
                 <td>{post.body}</td>
                 <td>{post.author}</td>
                 <td>{post.category}</td>
+                <td>{post._kmd.lmt.slice(0,16).replace('T','-')}</td>
                 <td>{post.rating}</td>
             </tr>
         );
@@ -68,6 +73,7 @@ export default class AllPostsPage extends Component {
                         <th>Body</th>
                         <th>Author</th>
                         <th>Category</th>
+                        <th>Published date:</th>
                         <th>Views</th>
                     </tr>
                     </thead>

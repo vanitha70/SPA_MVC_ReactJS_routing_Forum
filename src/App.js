@@ -45,7 +45,7 @@ class App extends Component {
                     <Link to="/posts" id="allPosts" className="btn btn-default" activeClassName="btn btn-default active">All posts</Link>
                     <Link to="/about" className="btn btn-default" activeClassName="btn btn-default active">About</Link>
                     <Link to="/logout" className="btn btn-default" activeClassName="btn btn-default active">Logout</Link>
-                    <Link to="/account/profile" className="btn btn-default" activeClassName="btn btn-default active">Hello, {this.state.username}</Link>
+                    <Link to="/account/profile" className="btn btn-default" activeClassName="btn btn-default active">Profile</Link>
                 </Navbar>
             )
         }
