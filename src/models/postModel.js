@@ -2,17 +2,17 @@ import Requester from './requestModel';
 import Kinvey from '../services/kinveyService';
 import AuthenticationService from '../services/authenticationService';
 import observer from './observer'
-import $ from 'jquery'
 
 let requester = new Requester();
 let kinvey = new Kinvey();
 let auth =
 	new AuthenticationService(kinvey.getKinveyAppKey(), kinvey.getKinveySecret());
 
+// TODO: all promises must have catch that displays errors
 export default class Post {
-	constructor(){
-		// this.bindEventHandlers()
-	}
+	/*constructor(){
+		this.bindEventHandlers()
+	}*/
 
 	// bindEventHandlers() {
      //    this.initializeRating = this.initializeRating.bind(this)
@@ -25,7 +25,6 @@ export default class Post {
 			body,
 			author
 		};
-
 		requester.post(kinvey.getCollectionModuleUrl('posts'), auth.getHeaders(), postData)
 			.then(createPostSuccess);
 		let that = this
@@ -91,6 +90,42 @@ export default class Post {
 			}
             callback(postInfo)
         }
+    }
+
+	/**
+	 * Makes a GET request using kinvey's query
+	 * Wrap the filter and modifier in ``(tildas)
+	 * See {@link http://devcenter.kinvey.com/rest/guides/datastore#Querying}
+	 * for full documentation
+	 * @param {string} filter
+	 * // No filter(takes all properties) use {} \\
+	 * // To filter by single prop
+	 * `"firstName":"James"` or with numbers `"age":15` \\
+	 * // To filter by prop of a prop `"author.firstName":"Terry"` \\
+	 * // To filter by multiple props `"firstName":"James", "lastName":"Bond"` \\
+	 * // To filter with OR operator `"$or":[{"firstName":"James", "lastName":"Bond"}]` \\
+	 * // To filter using greater($gte)/less($lt)/lessOrEqual($lte)
+	 *      than/to `"age":{"$gte": 31}`\\
+	 * @param {string} modifier - (property)/limit/skip/sort/fields
+	 * // To not use this enter null
+	 * // To limit `limit=10` \\
+	 * // To skip `skip=10` \\
+	 * // To sort `sort=age` (ascending) `sort={"age": -1}` (descending) \\
+	 * // To sort by multiple props `sort={"firstName": 1, "lastName": -1}` \\
+	 * // To take only desired fields `fields=age,lastName` \\
+	 * @param {function} callback - returns Object with server data
+	*/
+
+    query(filter, modifier, callback) {
+    	let queryString = `?query={${filter}}`;
+    	if (modifier !== null)
+    		queryString += `&${modifier}`;
+    	let url = kinvey.getCollectionModuleUrl('posts') + queryString;
+
+		requester.get(url, auth.getHeaders())
+			.then((response) => {
+				callback(response);
+			});
     }
 
     getPostsById(callback){
