@@ -44,16 +44,22 @@ export default class AllPostsPage extends Component {
     }
 
     action(post,userId){
-        let path = 'edit/'+post._id
+        let pathEdit = 'edit/'+post._id
+        let pathDetails = 'details/'+post._id
         if(post._acl.creator===userId){
             return (
                 <td>
                     <input type="button"value="Delete"onClick={()=> this.onActionHandler(post)}/>
-                    <Link to={path} className="btn btn-default" activeClassName="btn btn-default active">Edit</Link>
+                    <Link to={pathEdit} className="btn btn-default" activeClassName="btn btn-default active">Edit</Link>
+                    <Link to={pathDetails} className="btn btn-default" activeClassName="btn btn-default active">Details</Link>
                 </td>
             )
         }
-        return <td></td>
+        return (
+            <td>
+                <Link to={pathDetails} className="btn btn-default" activeClassName="btn btn-default active">Details</Link>
+            </td>
+        )
     }
 
     onActionHandler(post) {

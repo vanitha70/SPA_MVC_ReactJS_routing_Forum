@@ -9,10 +9,11 @@ import About from './components/About/AboutPage';
 import Login from './components/Login/LoginPage';
 import Register from './components/Register/RegisterPage';
 import Logout from './components/Logout/LogoutPage';
-import CreatePostPage from './components/Create post/CreatePostPage';
-import AllPostsPage from './components/All posts/AllPostsPage';
+import CreatePostPage from './components/Posts/Create post/CreatePostPage';
+import AllPostsPage from './components/Posts/AllPostsPage';
 import Profile from './components/Profile/ProfilePage';
-import Edit from './components/Edit/EditPage';
+import Edit from './components/Posts/Edit post/EditPage';
+import Details from './components/Posts/DetailsPage';
 
 ReactDOM.render(
     <Router history={browserHistory}>
@@ -24,6 +25,7 @@ ReactDOM.render(
             <Route path="createPost" component={CreatePostPage}/>
             <Route path="allPosts" component={AllPostsPage}/>
             <Route path="edit/:postId" component={Edit}/>
+            <Route path="details/:postId" component={Details}/>
             <Route path="logout" component={Logout}/>
             <Route path="profile" component={Profile}/>
         </Route>

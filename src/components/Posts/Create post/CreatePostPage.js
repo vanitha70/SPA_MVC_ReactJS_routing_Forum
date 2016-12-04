@@ -1,7 +1,7 @@
 import React, {Component} from 'react'
 import CreateForm from './CreatePostForm'
-import Post from '../../models/postModel'
-import observer from '../../models/observer'
+import Post from '../../../models/postModel'
+import observer from '../../../models/observer'
 let post = new Post();
 
 export default class CreatePostPage extends Component {

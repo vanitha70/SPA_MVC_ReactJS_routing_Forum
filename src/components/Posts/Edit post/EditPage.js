@@ -1,7 +1,8 @@
 import React, {Component} from 'react';
 import EditForm from './EditForm';
-import Post from '../../models/postModel';
-import observer from '../../models/observer'
+import Post from '../../../models/postModel';
+import observer from '../../../models/observer'
+import { browserHistory } from 'react-router'
 let post = new Post()
 
 export default class EditPage extends Component {
@@ -56,7 +57,7 @@ export default class EditPage extends Component {
     onSubmitResponse(response) {
         if (response === true) {
             // Navigate away from login page
-            this.context.router.push('/allPosts');
+            browserHistory.push('/allPosts')
             observer.showSuccess('Post edited.')
         } else {
             // Something went wrong, let the user try again
