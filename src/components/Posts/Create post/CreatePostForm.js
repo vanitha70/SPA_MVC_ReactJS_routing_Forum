@@ -2,11 +2,22 @@ import React, {Component} from 'react'
 
 export default class CreateForm extends Component {
     render() {
+        let options = this.props.categories.map(category =>
+            <option key={category._id}>{category.name}</option>
+        );
         return (
 	        <form className="form-horizontal" onSubmit={this.props.onSubmitHandler}>
                 <div className="form-group">
-                    <label className="col-md-5 control-label">Post Title:</label>
-	                <div className="col-md-3">
+                    <label>Select Category:</label>
+                    <select className="form-control" id="sel1" name="category" onChange={this.props.onChangeHandler}>
+                        <option key="empty"> </option>
+                        {options}
+                    </select>
+                </div>
+                <br/>
+                <div className="form-group">
+                    <label>Post Title:</label>
+	                <div className="form-group">
                         <input
                             className="form-control"
                             type="text"
@@ -19,9 +30,9 @@ export default class CreateForm extends Component {
 	                </div>
                 </div>
                 <div className="form-group">
-                    <label className="col-md-5 control-label">Post Content:</label>
-	                <div className="col-md-3">
-                        <input
+                    <label>Post Content:</label>
+	                <div className="form-group">
+                        <textarea style={{height:'150px'}}
                             className="form-control"
                             type="text"
                             name="content"
@@ -34,7 +45,7 @@ export default class CreateForm extends Component {
                 </div>
 		        <div className="form-group">
 		            <div className="col-md-3 col-md-offset-5">
-                        <input className="btn btn-default"
+                        <input className="btn btn-primary" style={{width:'100px', marginLeft:'40px' }}
                                type="submit" value="Create"
                                disabled={this.props.submitDisabled}/>
 		            </div>

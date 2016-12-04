@@ -7,12 +7,23 @@ let post = new Post();
 export default class CreatePostPage extends Component {
     constructor(props) {
         super(props)
-        this.state = { title: '', body: '', submitDisabled: false }
+        this.state = { title: '', body: '', category:'', categories: [], submitDisabled: false }
         this.bindEventHandlers()
+    }
+
+    componentDidMount() {
+        post.getAllCategories(this.loadCategories)
+    }
+
+    loadCategories(data){
+        this.setState({
+            categories: data
+        })
     }
 
     bindEventHandlers() {
         // Make sure event handlers have the correct context
+        this.loadCategories = this.loadCategories.bind(this)
         this.onChangeHandler = this.onChangeHandler.bind(this)
         this.onSubmitHandler = this.onSubmitHandler.bind(this)
         this.onSubmitResponse = this.onSubmitResponse.bind(this)
@@ -26,6 +37,9 @@ export default class CreatePostPage extends Component {
             case 'content':
                 this.setState({ body: event.target.value })
                 break
+            case 'category':
+                this.setState({ category: event.target.value })
+                break
             default:
                 break
         }
@@ -34,11 +48,14 @@ export default class CreatePostPage extends Component {
     onSubmitHandler(event) {
         event.preventDefault()
         if (this.state.title.length < 5 || this.state.body < 5) {
-            observer.showError("Title and content must consist at least 5 digits")
+            observer.showError("Title and content must consist at least 5 digits!")
+            return
+        } else if (this.state.category === ''){
+            observer.showError("Please select a category!")
             return
         }
         this.setState({ submitDisabled: true })
-        post.createPost(this.state.title, this.state.body, sessionStorage.getItem('username'), this.onSubmitResponse)
+        post.createPost(this.state.title, this.state.body, sessionStorage.getItem('username'),this.state.category , this.onSubmitResponse)
     }
 
     onSubmitResponse(response) {
@@ -60,6 +77,7 @@ export default class CreatePostPage extends Component {
                 <CreateForm
                     title={this.state.title}
                     content={this.state.body}
+                    categories={this.state.categories}
                     submitDisabled={this.state.submitDisabled}
                     onChangeHandler={this.onChangeHandler}
                     onSubmitHandler={this.onSubmitHandler}

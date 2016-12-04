@@ -19,11 +19,12 @@ export default class Post {
     //    this.deleteRating = this.deleteRating.bind(this)
     // }
 
-    createPost(title, body, author, callback) {
+    createPost(title, body, author, category, callback) {
         let postData = {
             title,
             body,
-            author
+            author,
+            category,
         };
         requester.post(kinvey.getCollectionModuleUrl('posts'), auth.getHeaders(), postData)
             .then(createPostSuccess);
@@ -112,6 +113,16 @@ export default class Post {
             }
             postInfo.sort((a,b)=>b.rating - a.rating)
             callback(postInfo)
+        }
+    }
+
+    getAllCategories(callback) {
+
+        requester.get(kinvey.getCollectionModuleUrl('categories'), auth.getHeaders())
+            .then(listAllPostsSuccess)
+
+        function listAllPostsSuccess(data) {
+            callback(data)
         }
     }
 
