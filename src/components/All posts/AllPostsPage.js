@@ -79,6 +79,7 @@ export default class AllPostsPage extends Component {
                 <td>{post.title}</td>
                 <td>{post.body}</td>
                 <td>{post.author}</td>
+                <td>{post.rating}</td>
                 {this.action(post,sessionStorage.userId)}
             </tr>
         );
@@ -92,6 +93,7 @@ export default class AllPostsPage extends Component {
                         <th>Title</th>
                         <th>Body</th>
                         <th>Author</th>
+                        <th>Rating</th>
                         <th>Actions</th>
                     </tr>
                     </thead>
