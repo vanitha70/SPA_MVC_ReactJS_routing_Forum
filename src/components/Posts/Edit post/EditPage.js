@@ -14,7 +14,7 @@ export default class EditPage extends Component {
 
     componentDidMount() {
         // Populate form
-        post.loadPostDetails(this.props.params.postId, this.onLoadSuccess);
+        post.loadPostDetailsForEdit(this.props.params.postId, this.onLoadSuccess);
     }
 
     bindEventHandlers() {

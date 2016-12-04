@@ -69,6 +69,11 @@ export default class Post {
             .then(callback(true));
     }
 
+    loadPostDetailsForEdit(postId, onPostSuccess){
+        requester.get(kinvey.getCollectionModuleUrl('posts') + '/' + postId, auth.getHeaders())
+            .then(onPostSuccess)
+    }
+
     loadPostDetails(postId, onPostSuccess) {
         requester.get(kinvey.getCollectionModuleUrl('rating') + `?query={"postId":"${postId}"}`, auth.getHeaders())
             .then(getPostSetRating)
