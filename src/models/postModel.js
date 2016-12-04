@@ -60,18 +60,22 @@ export default class Post {
         requester.delete(kinvey.getCollectionModuleUrl('rating') + `?query={"postId":"${id}"}`, auth.getHeaders())
     }
 
-    editPost(postId, title, body, author, callback) {
+    editPost(postId, title, body, author, category, callback) {
         let postData = {
             title: title,
             body: body,
-            author: author
+            author: author,
+            category: category
         };
         requester.put(kinvey.getCollectionModuleUrl('posts') + '/' + postId, auth.getHeaders(), postData)
             .then(callback(true));
     }
 
     loadPostDetailsForEdit(postId, onPostSuccess){
-        requester.get(kinvey.getCollectionModuleUrl('posts') + '/' + postId, auth.getHeaders())
+       let data = [requester.get(kinvey.getCollectionModuleUrl('posts') + '/' + postId, auth.getHeaders()),
+        requester.get(kinvey.getCollectionModuleUrl('categories'), auth.getHeaders())]
+
+        Promise.all(data)
             .then(onPostSuccess)
     }
 

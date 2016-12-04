@@ -49,10 +49,11 @@ export default class AllPostsPage extends Component {
 
     render() {
         let postRows = this.state.pagePosts.map(post =>
-            <tr key={post._id} onClick={() => {browserHistory.push('posts/details/'+post._id)}}>
+        <tr key={post._id} onClick={() => {browserHistory.push('posts/details/'+post._id)}}>
                 <td>{post.title}</td>
                 <td>{post.body}</td>
                 <td>{post.author}</td>
+                <td>{post.category}</td>
                 <td>{post.rating}</td>
             </tr>
         );
@@ -66,7 +67,8 @@ export default class AllPostsPage extends Component {
                         <th>Title</th>
                         <th>Body</th>
                         <th>Author</th>
-                        <th>Rating</th>
+                        <th>Category</th>
+                        <th>Views</th>
                     </tr>
                     </thead>
                     <tbody>

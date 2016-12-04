@@ -8,7 +8,7 @@ let post = new Post()
 export default class EditPage extends Component {
     constructor(props) {
         super(props);
-        this.state = {title: '', body: '', submitDisabled: true};
+        this.state = {title: '', body: '',category: '' , categories: [], submitDisabled: true};
         this.bindEventHandlers();
     }
 
@@ -27,9 +27,11 @@ export default class EditPage extends Component {
 
     onLoadSuccess(response) {
         this.setState({
-            title: response.title ,
-            body: response.body ,
-            author: response.author ,
+            title: response[0].title ,
+            body: response[0].body ,
+            author: response[0].author ,
+            category: response[0].category,
+            categories: response[1],
             submitDisabled: false
         });
     }
@@ -44,13 +46,18 @@ export default class EditPage extends Component {
     onSubmitHandler(event) {
         event.preventDefault();
         this.setState({submitDisabled: true});
-        if(this.state.title.length >= 5 && this.state.body.length >= 5 ) {
-            post.editPost(this.props.params.postId, this.state.title, this.state.body, this.state.author, this.onSubmitResponse);
-        } else {
+        if(this.state.title.length < 5 && this.state.body.length < 5 ) {
             observer.showError('Post title and Post body must be at least 5 digits long!')
             this.setState({
                 submitDisabled: false
+            })
+        } else if(this.state.category === '') {
+            observer.showError('Please select category!')
+            this.setState({
+                submitDisabled: false
             });
+        } else {
+            post.editPost(this.props.params.postId, this.state.title, this.state.body, this.state.author, this.state.category, this.onSubmitResponse);
         }
     }
 
@@ -73,6 +80,8 @@ export default class EditPage extends Component {
                     title={this.state.title}
                     body={this.state.body}
                     submitDisabled={this.state.submitDisabled}
+                    categories={this.state.categories}
+                    category={this.state.category}
                     onChangeHandler={this.onChangeHandler}
                     onSubmitHandler={this.onSubmitHandler}
                 />
