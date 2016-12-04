@@ -44,8 +44,8 @@ export default class DetailsPage extends Component {
 
     showComments(comments) {
         let asdf = []
-        if (comments !== {}) {
-            asdf.push(<h2 key={-1}>Comments</h2>)
+        if(comments!==undefined) {
+            asdf.push(<h2 key={-1}>Comments</h2>);
             for (let i in comments) {
                 if (comments !== []) {
                     asdf.push(<div key={i}>{comments[i].text} by <strong key={i}>{comments[i].author}</strong> on
