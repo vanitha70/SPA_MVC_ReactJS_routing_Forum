@@ -34,7 +34,7 @@ export default class DetailsPage extends Component {
     onActionHandler(post) {
         postModule.deletePost(post._id,this.onDeleteResponse)
     }
-
+//
     onDeleteResponse(response,id) {
         if (response === true) {
             browserHistory.push('/posts')

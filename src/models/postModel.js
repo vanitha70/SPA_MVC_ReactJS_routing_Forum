@@ -109,13 +109,12 @@ export default class Post {
         Promise.all(actions).then(listAllPostsSuccess)
 
         function listAllPostsSuccess(data) {
-            //observer.showSuccess('Posts loaded!')
-            let postInfo = data[0].sort(data[0]._id > data[0]._id)
-            let ratingInfo = data[1].sort(data[1].postId > data[1].postId)
+            let postInfo = data[0].sort((a, b) => a._id > b._id)
+            let ratingInfo = data[1].sort((a, b) => a.postId > b.postId)
             for (let i = 0; i < postInfo.length; i++) {
                 postInfo[i]['rating'] = ratingInfo[i].rating
             }
-            postInfo.sort((a,b)=>b.rating - a.rating)
+            postInfo.sort((a,b) => b.rating - a.rating)
             callback(postInfo)
         }
     }
