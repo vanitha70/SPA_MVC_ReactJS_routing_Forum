@@ -3,7 +3,6 @@ import Post from '../../models/postModel'
 import {Link} from 'react-router'
 import { browserHistory } from 'react-router'
 let postModule = new Post();
-
 export default class DetailsPage extends Component {
     constructor(props) {
         super(props)
@@ -13,6 +12,7 @@ export default class DetailsPage extends Component {
                     creator: ''
                 }
             }
+            ,postComments:{}
         }
         this.bindEventHandlers()
     }
@@ -43,16 +43,20 @@ export default class DetailsPage extends Component {
 
     action(post,userId){
         let pathEdit = 'posts/edit/'+post._id
+        let pathAddComment = '/comments/'+post._id;
         if(post._acl.creator===userId){
             return (
                 <td>
                     <input type="button"value="Delete"onClick={()=> this.onActionHandler(post)}/>
                     <Link to={pathEdit} className="btn btn-default" activeClassName="btn btn-default active">Edit</Link>
+                    <Link to={pathAddComment} className="btn btn-danger">Add Comment</Link>
                 </td>
             )
         }
         return (
-            <td></td>
+            <td>
+                <Link to={pathAddComment} className="btn btn-danger">Add Comment</Link>
+            </td>
         )
     }
 

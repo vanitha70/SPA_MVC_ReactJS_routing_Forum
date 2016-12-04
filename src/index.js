@@ -14,6 +14,7 @@ import AllPostsPage from './components/Posts/AllPostsPage';
 import Profile from './components/Profile/ProfilePage';
 import Edit from './components/Posts/Edit post/EditPage';
 import Details from './components/Posts/DetailsPage';
+import CreateCommentPage from './components/Comments/CreateCommentPage';
 
 ReactDOM.render(
     <Router history={browserHistory}>
@@ -25,6 +26,7 @@ ReactDOM.render(
             <Route path="posts/create" component={CreatePostPage}/>
             <Route path="posts" component={AllPostsPage}/>
             <Route path="posts/edit/:postId" component={Edit}/>
+            <Route path="comments/:postId" component={CreateCommentPage}/>
             <Route path="posts/details/:postId" component={Details}/>
             <Route path="logout" component={Logout}/>
             <Route path="account/profile" component={Profile}/>

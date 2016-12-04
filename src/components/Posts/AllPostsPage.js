@@ -4,6 +4,7 @@ import Pager from 'react-pager';
 import { browserHistory } from 'react-router'
 let postModule = new Post();
 
+
 export default class AllPostsPage extends Component {
     constructor(props) {
         super(props)
