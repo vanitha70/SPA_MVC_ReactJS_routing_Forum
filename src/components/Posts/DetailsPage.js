@@ -11,8 +11,7 @@ export default class DetailsPage extends Component {
                 _acl: {
                     creator: ''
                 }
-            },
-            postComments:[]
+            }
         }
         this.bindEventHandlers()
     }
@@ -26,11 +25,24 @@ export default class DetailsPage extends Component {
     onLoadSuccess(response,comment) {
         this.setState({post: response});
     }
-
     componentDidMount() {
         postModule.loadPostDetails(this.props.params.postId, this.onLoadSuccess);
     }
 
+    showComments(comments) {
+        let asdf = [];
+        console.log(comments);
+        if(comments!==undefined) {
+            asdf.push(<h2 key={-1}>Comments</h2>);
+            for (let i in comments) {
+                if(comments!==[]) {
+                    asdf
+                        .push(<div key={i}>{comments[i].text} by <strong key={i}>{comments[i].author}</strong> on {comments[i]._kmd.lmt}</div>)
+                }
+            }
+        }
+        return asdf;
+    }
     onActionHandler(post) {
         postModule.deletePost(post._id,this.onDeleteResponse)
     }
@@ -69,6 +81,7 @@ export default class DetailsPage extends Component {
                 </h4>
                 <div>{this.state.post.body}</div>
                 <div>{this.action(this.state.post,sessionStorage.userId)}</div>
+                {this.showComments(this.state.post.comments)}
             </div>
         )
     }
