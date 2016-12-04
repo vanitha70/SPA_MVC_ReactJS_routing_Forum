@@ -91,7 +91,6 @@ export default class Post {
                         postId: postId,
                         rating: ++ratingData[0].rating
                     }),
-                requester.get(kinvey.getCollectionModuleUrl('comments')+`?query={"postId":"${postId}"}`,auth.getHeaders())
             ]
             Promise.all(actions)
                 .then((data) => {
