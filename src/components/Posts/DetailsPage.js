@@ -75,7 +75,7 @@ export default class DetailsPage extends Component {
                             <td>{this.state.post.title}</td>
                             <td>{this.state.post.body}</td>
                             <td>{this.state.post.author}</td>
-                            <td></td>
+                            <td>{this.state.post.rating}</td>
                             {this.action(this.state.post,sessionStorage.userId)}
                         </tr>
                     </tbody>
