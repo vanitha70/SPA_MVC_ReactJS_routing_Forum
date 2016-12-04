@@ -20,7 +20,7 @@ export default class User {
 				observer.onSessionUpdate();
 				observer.showSuccess('Login successful.')
 				callback(true);
-			});
+			}).catch(callback(false))
 	}
 
 	register(username, password, callback) {

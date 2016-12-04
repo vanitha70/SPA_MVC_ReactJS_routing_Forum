@@ -3,6 +3,7 @@ import LoginForm from './LoginForm'
 import User from '../../models/userModel'
 import Modal from 'react-bootstrap/lib/Modal'
 import Button from 'react-bootstrap/lib/Button'
+import $ from 'jquery'
 let user = new User();
 
 export default class LoginPage extends Component {
@@ -10,6 +11,10 @@ export default class LoginPage extends Component {
         super(props)
         this.state = { username: '', password: '', submitDisabled: false, showModal: true }
         this.bindEventHandlers()
+    }
+
+    componentDidMount() {
+        $('#error').hide()
     }
 
     close() {
@@ -53,7 +58,8 @@ export default class LoginPage extends Component {
             this.context.router.push('/posts')
         } else {
             // Something went wrong, let the user try again
-            this.setState({ submitDisabled: true })
+            $('#error').show()
+            this.setState({ submitDisabled: false })
         }
     }
 

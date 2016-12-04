@@ -112,7 +112,7 @@ export default class DetailsPage extends Component {
             <div>
                 <h1>{this.state.post.title}</h1>
                 <h4>published by <strong>{this.state.post.author}</strong>
-                    <div>Rating : {this.state.post.rating}</div>
+                    <div>Views : {this.state.post.rating}</div>
                 </h4>
                 <div>{this.state.post.body}</div>
                 <div>{this.action(this.state.post, sessionStorage.userId)}</div>
