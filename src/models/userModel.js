@@ -14,11 +14,11 @@ export default class User {
 			username: username,
 			password: password
 		};
-		requester.post(kinvey.getUserModuleUrl() + 'login', auth.getHeaders(), userData)
+		requester.post(kinvey.getUserModuleUrl() + '/login', auth.getHeaders(), userData)
 			.then((response) => {
-				this.saveSession(response)
+				this.saveSession(response);
 				observer.onSessionUpdate();
-				observer.showSuccess('Login successful.')
+				observer.showSuccess('Login successful.');
 				callback(true);
 			})
 			.catch((err)=> callback(false))
@@ -33,39 +33,49 @@ export default class User {
 			.then((response) => {
 				this.saveSession(response);
 				observer.onSessionUpdate();
-				observer.showSuccess('Successful registration.')
+				observer.showSuccess('Successful registration.');
 				callback(true);
 			})
 			.catch((err)=> callback(false))
 	}
-	changePassword (username, currentPass, password, callback){
+	changePassword (username, currentPass, password, callback) {
+		let url = kinvey.getUserModuleUrl() + `/${sessionStorage.getItem('userId')}`;
 		let userData = {
 			username,
 			password
-		}
-		requester.put(kinvey.getUsersChangePassUrl(), auth.changePassHeaders(username, currentPass), userData)
+		};
+		requester.put(url, auth.changePassHeaders(username, currentPass), userData)
 			.then(respose => {
-                sessionStorage.clear()
-				this.saveSession(respose)
-                observer.showSuccess('Password changed successfully.')
+                sessionStorage.clear();
+				this.saveSession(respose);
+                observer.showSuccess('Password changed successfully.');
 				callback(true)})
 			.catch(() => callback(false))
    }
 	logout(callback) {
-		requester.post(kinvey.getUserModuleUrl() + '_logout', auth.getHeaders())
+		requester.post(kinvey.getUserModuleUrl() + '/_logout', auth.getHeaders())
 			.then(response => {
 				sessionStorage.clear();
 				observer.onSessionUpdate();
-				observer.showSuccess('Logout successful.')
+				observer.showSuccess('Logout successful.');
 				callback(true)
 			});
 	}
 
 	checkAdmin(callback){
-		requester.get(kinvey.getUsersChangePassUrl(), auth.getHeaders())
+		requester.get(kinvey.getUserModuleUrl() + `/${sessionStorage.getItem('userId')}`, auth.getHeaders())
 			.then((response) => {
                 callback(response.Admin)
 		})
+	}
+
+	getUserById(callback) {
+		let url = kinvey.getUserModuleUrl() + `/${sessionStorage.getItem('userId')}`;
+		if (callback === undefined)
+			return requester.get(url, auth.getHeaders());
+
+		requester.get(url, auth.getHeaders())
+			.then(user => callback(user));
 	}
 
 	//
