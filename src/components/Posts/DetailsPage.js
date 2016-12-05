@@ -60,6 +60,7 @@ export default class DetailsPage extends Component {
 
     onActionHandler(post) {
         postModule.deletePost(post._id, this.onDeleteResponse)
+        commentModule.deleteCommentsByPostId(post._id, this.onDeleteResponse)
     }
 
     onDeleteResponse(response, id) {

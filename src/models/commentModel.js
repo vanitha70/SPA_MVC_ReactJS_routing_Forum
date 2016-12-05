@@ -58,4 +58,9 @@ export default class Comment {
         requester.put(kinvey.getCollectionModuleUrl('comments') + '/' + commentId, auth.getHeaders(), commentData)
             .then(callback(true))
     }
+
+    deleteCommentsByPostId(postId,callback){
+        requester.delete(kinvey.getCollectionModuleUrl('comments')+`?query={"postId":"${postId}"}`,auth.getHeaders())
+            .then(callback(true));
+    }
 }
