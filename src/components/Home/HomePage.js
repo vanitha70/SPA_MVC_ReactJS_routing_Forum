@@ -1,5 +1,6 @@
 import React, {Component} from 'react'
 import {Link} from 'react-router'
+import Header from '../common/Header'
 
 export default class HomePage extends Component {
     render() {
@@ -11,10 +12,12 @@ export default class HomePage extends Component {
                 message = <p>You are currently not a member of a team. View the <Link to="/catalog">catalog</Link> to join or create one.</p>
             }
         }
+
         return (
             <div className="col-md-8">
                 <h1>Home Page</h1>
-                {message}
+	            <Header/>
+	            {message}
             </div>
         );
     }

@@ -70,7 +70,7 @@ export default class CreatePostPage extends Component {
 
     render() {
         return (
-	        <div className="row">
+	        <div>
 		        <div className="page-header text-center">
 			        <h2>Create Post</h2>
 		        </div>
