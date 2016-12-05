@@ -94,33 +94,19 @@ export default class Post {
         }
     }
 
+    getPostById(id, callback) {
+    	if (callback === undefined)
+	    return requester.get(kinvey.getCollectionModuleUrl('posts') + '/' + id)
+
+	    requester.get(kinvey.getCollectionModuleUrl('posts') + '/' + id)
+		    .then(post => callback(post));
+	}
+
     getAllPosts(callback) {
-        let actions = [
-            requester.get(kinvey.getCollectionModuleUrl('posts'), auth.getHeaders()),
-            requester.get(kinvey.getCollectionModuleUrl('rating'), auth.getHeaders()),
-            requester.get(kinvey.getCollectionModuleUrl('categories'), auth.getHeaders()),
-        ]
-        Promise.all(actions).then(listAllPostsSuccess)
-
-        function listAllPostsSuccess(data) {
-            let postInfo = data[0].sort((a, b) => a._id > b._id)
-            let ratingInfo = data[1].sort((a, b) => a.postId > b.postId)
-            for (let i = 0; i < postInfo.length; i++) {
-                postInfo[i]['rating'] = ratingInfo[i].rating
-            }
-            postInfo.sort((a,b) => b.rating - a.rating)
-            callback(postInfo, data[2])
-        }
-    }
-
-    getAllCategories(callback) {
-
-        requester.get(kinvey.getCollectionModuleUrl('categories'), auth.getHeaders())
-            .then(listAllPostsSuccess)
-
-        function listAllPostsSuccess(data) {
-            callback(data)
-        }
+    	if (callback === undefined)
+    		return requester.get(kinvey.getCollectionModuleUrl('posts'), auth.getHeaders());
+	    requester.get(kinvey.getCollectionModuleUrl('posts'), auth.getHeaders())
+		    .then(posts => callback(posts));
     }
 
     /**

@@ -1,13 +1,17 @@
 import React, {Component} from 'react'
 import Post from '../../models/postModel'
+import View from '../../models/viewsModel';
+import Category from '../../models/categoryModel';
 import Pager from 'react-pager';
 import { browserHistory } from 'react-router'
 let postModule = new Post();
+let viewModule = new View();
+let categoryModule = new Category();
 
 
 export default class AllPostsPage extends Component {
     constructor(props) {
-        super(props)
+        super(props);
         this.state = {
             posts: [],
             pagePosts: [],
@@ -56,22 +60,33 @@ export default class AllPostsPage extends Component {
     }
 
     bindEventHandlers() {
-        this.onChangeHandler = this.onChangeHandler.bind(this)
+        this.onChangeHandler = this.onChangeHandler.bind(this);
         this.onLoadSuccess = this.onLoadSuccess.bind(this);
         this.handlePageChanged = this.handlePageChanged.bind(this);
     }
 
     componentDidMount() {
-        postModule.getAllPosts(this.onLoadSuccess)
+    	let requests = [
+            postModule.getAllPosts(),
+	        categoryModule.getAllCategories(),
+	        viewModule.getAllViews()
+	    ];
+    	Promise.all(requests).then(this.onLoadSuccess)
     }
 
-    onLoadSuccess(response, categories) {
+    onLoadSuccess([posts, categories, views]) {
+	    let postInfo = posts.sort((a, b) => a._id > b._id);
+	    let viewsInfo = views.sort((a, b) => a.postId > b.postId);
+	    for (let i = 0; i < postInfo.length; i++) {
+		    postInfo[i]['rating'] = viewsInfo[i].rating
+	    }
+	    postInfo.sort((a,b) => b.rating - a.rating);
         this.setState({
-            posts: response.sort((a, b) => {
+            posts: posts.sort((a, b) => {
                 return b._kmd.lmt.localeCompare(a._kmd.lmt)
             }),
-            pagePosts: response.slice(this.state.current * this.state.visiblePage, (this.state.current * this.state.visiblePage) + 10),
-            total: Math.ceil(response.length / 10),
+            pagePosts: posts.slice(this.state.current * this.state.visiblePage, (this.state.current * this.state.visiblePage) + 10),
+            total: Math.ceil(posts.length / 10),
             categories: categories
         })
     }

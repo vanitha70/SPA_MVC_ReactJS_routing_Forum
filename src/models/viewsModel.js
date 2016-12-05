@@ -22,8 +22,12 @@ export default class Views {
         requester.delete(kinvey.getCollectionModuleUrl('rating') + `?query={"postId":"${id}"}`, auth.getHeaders())
     }
 
-    getAllViews() {
+    getAllViews(callback) {
+        if (callback === undefined)
+            return requester.get(kinvey.getCollectionModuleUrl('rating'), auth.getHeaders());
+
         requester.get(kinvey.getCollectionModuleUrl('rating'), auth.getHeaders())
+            .then(views => callback(views));
     }
 
     getPostById(postId) {
