@@ -18,4 +18,13 @@ export default class AuthenticationService {
 
 		return headers;
 	}
+
+	changePassHeaders(username, password){
+        let headers = {
+            'Content-Type': 'application/json',
+            'Authorization': 'Basic ' + btoa(username + ":" + password)
+        }
+        return headers
+	}
+
 }

@@ -37,6 +37,19 @@ export default class User {
 				callback(true);
 			});
 	}
+	changePassword (username, currentPass, password, callback){
+		let userData = {
+			username,
+			password
+		}
+		requester.put(kinvey.getUsersChangePassUrl(), auth.changePassHeaders(username, currentPass), userData)
+			.then(respose => {
+                sessionStorage.clear()
+				this.saveSession(respose)
+                observer.showSuccess('Password changed successfully.')
+				callback(true)})
+			.catch(() => callback(false))
+   }
 	logout(callback) {
 		requester.post(kinvey.getUserModuleUrl() + '_logout', auth.getHeaders())
 			.then(response => {

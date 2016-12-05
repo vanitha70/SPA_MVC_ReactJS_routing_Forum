@@ -65,13 +65,14 @@ export default class Profile extends Component {
                 <h1>{this.state.username}</h1>
                 <div><img src={this.state.img} alt="" width={150} height={150}/></div>
                 <h4>Your Posts</h4>
-                <table>
+                <div><Link to="profile/changePass" className="btn btn-default" activeClassName="btn btn-default active">Change password</Link> </div>
+                <table className="table table-hover">
                     <thead>
                     <tr>
                         <th>Title</th>
                         <th>Body</th>
-                        <th>Author</th>
-                        <th>Post Rating</th>
+                        <th></th>
+                        <th></th>
                         <th>Actions</th>
                     </tr>
                     </thead>
