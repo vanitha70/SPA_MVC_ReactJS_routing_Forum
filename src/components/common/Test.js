@@ -34,7 +34,7 @@ export default class Test extends Component {
 		if (this.state.index >= this.pictures.length - 1)
 			this.setState({index: 0});
 		else
-			this.setState({index: this.state.index += 1});
+			this.setState({index: this.state.index + 1});
 	}
 
 	componentDidMount() {

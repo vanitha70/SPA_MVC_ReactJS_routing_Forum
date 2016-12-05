@@ -4,20 +4,22 @@ import NavItem from 'react-bootstrap/lib/NavItem';
 import Navbar from 'react-bootstrap/lib/Navbar'
 import { LinkContainer } from 'react-router-bootstrap';
 import {Link} from 'react-router'
+// import Carousel from './Test';
 
 export default class NavigationBar extends Component {
 	render() {
 		let navbar = {};
+		let navbarRight = [];
 		if (!this.props.loggedIn) {
 			navbar = (
 				<Nav>
-					<LinkContainer to="account/login" key="login">
+					<LinkContainer to="/account/login" key="login">
 						<NavItem href="account/login">Login</NavItem>
 					</LinkContainer>
-					<LinkContainer to="account/register" key="register">
+					<LinkContainer to="/account/register" key="register">
 						<NavItem href="account/register">Register</NavItem>
 					</LinkContainer>
-					<LinkContainer to="about" key="about" >
+					<LinkContainer to="/about" key="about" >
 						<NavItem href="about">About</NavItem>
 					</LinkContainer>
 				</Nav>
@@ -25,17 +27,28 @@ export default class NavigationBar extends Component {
 		} else {
 			navbar = (
 				<Nav>
-					<LinkContainer to="posts/create" key="create">
+					<LinkContainer to="/posts/create" key="create">
 						<NavItem href="posts/create">Create post</NavItem>
 					</LinkContainer>
-					<LinkContainer to="posts" key="posts">
+					<LinkContainer to="/posts" key="posts">
 						<NavItem href="posts">All posts</NavItem>
 					</LinkContainer>
-					<LinkContainer to="about" key="about">
+					<LinkContainer to="/about" key="about">
 						<NavItem href="about" >About</NavItem>
 					</LinkContainer>
 				</Nav>
-			)
+			);
+
+			navbarRight = (
+				<Nav pullRight>
+					<LinkContainer to="/account/profile" key="profile">
+						<NavItem href="/account/profile">{this.props.user}</NavItem>
+					</LinkContainer>
+					<LinkContainer to="/logout" key="logout">
+						<NavItem href="/logout">Logout</NavItem>
+					</LinkContainer>
+				</Nav>
+			);
 		}
 		return (
 			<Navbar inverse collapseOnSelect>
@@ -47,14 +60,7 @@ export default class NavigationBar extends Component {
 				</Navbar.Header>
 				<Navbar.Collapse>
 					{navbar}
-					<Nav pullRight>
-						<LinkContainer to="account/profile" key="profile">
-							<NavItem href="/account/profile">{this.props.user}</NavItem>
-						</LinkContainer>
-						<LinkContainer to="logout" key="logout">
-							<NavItem href="/logout">Logout</NavItem>
-						</LinkContainer>
-					</Nav>
+					{navbarRight}
 				</Navbar.Collapse>
 			</Navbar>
 		);
