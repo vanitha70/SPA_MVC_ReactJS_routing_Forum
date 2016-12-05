@@ -2,6 +2,7 @@ import Requester from './requestModel';
 import Kinvey from '../services/kinveyService';
 import AuthenticationService from '../services/authenticationService';
 import observer from './observer'
+import $ from 'jquery';
 
 let requester = new Requester();
 let kinvey = new Kinvey();
@@ -40,6 +41,7 @@ export default class Post {
             .then(listAllPostsSuccess)
 
         function listAllPostsSuccess(postInfo) {
+
             observer.showSuccess('Posts loaded!')
             callback(postInfo)
         }

@@ -1,7 +1,8 @@
 import Requester from './requestModel';
 import Kinvey from '../services/kinveyService';
 import AuthenticationService from '../services/authenticationService';
-import observer from './observer'
+import observer from './observer';
+import $ from 'jquery';
 
 let requester = new Requester();
 let kinvey = new Kinvey();
