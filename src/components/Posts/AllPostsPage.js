@@ -97,7 +97,7 @@ export default class AllPostsPage extends Component {
         );
 
         return (
-            <div>
+            <div className="child">
                 <div className="form-group">
                     <label>Select category:</label>
                     <select className="form-control" id="sel1" name="category" onChange={this.onChangeHandler}>
@@ -105,7 +105,6 @@ export default class AllPostsPage extends Component {
                         {options}
                     </select>
                 </div>
-                <br/>
                 <h1>All Posts</h1>
                 <table className="table table-hover">
                     <thead>

@@ -61,7 +61,7 @@ export default class Profile extends Component {
             </tr>
         );
         return (
-            <div>
+            <div className="child">
                 <h1>{this.state.username}</h1>
                 <div><img src={this.state.img} alt="" width={150} height={150}/></div>
                 <h4>Your Posts</h4>

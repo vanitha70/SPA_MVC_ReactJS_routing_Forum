@@ -5,6 +5,7 @@ import Infobox from  './components/common/Infobox'
 import Footer from './components/common/Footer'
 import {Link} from 'react-router'
 import observer from './models/observer'
+import './App.css'
 
 class App extends Component {
     constructor(props) {
@@ -45,7 +46,8 @@ class App extends Component {
                     <Link to="/posts" id="allPosts" className="btn btn-default" activeClassName="btn btn-default active">All posts</Link>
                     <Link to="/about" className="btn btn-default" activeClassName="btn btn-default active">About</Link>
                     <Link to="/logout" className="btn btn-default" activeClassName="btn btn-default active">Logout</Link>
-                    <Link to="/account/profile" className="btn btn-default" activeClassName="btn btn-default active">Profile</Link>
+                    <Link to="/account/profile" className="btn btn-default" activeClassName="btn btn-default active">
+                        Welcome, {sessionStorage.getItem('username')}</Link>
                 </Navbar>
             )
         }

@@ -14,7 +14,6 @@ export default class CreateForm extends Component {
                         {options}
                     </select>
                 </div>
-                <br/>
                 <div className="form-group">
                     <label>Post Title:</label>
 	                <div className="form-group">
@@ -32,7 +31,7 @@ export default class CreateForm extends Component {
                 <div className="form-group">
                     <label>Post Content:</label>
 	                <div className="form-group">
-                        <textarea style={{height:'150px'}}
+                        <textarea style={{height:'100px'}}
                             className="form-control"
                             type="text"
                             name="content"
