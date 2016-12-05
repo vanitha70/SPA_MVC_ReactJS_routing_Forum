@@ -58,6 +58,7 @@ export default class LoginPage extends Component {
             this.context.router.push('/posts')
         } else {
             // Something went wrong, let the user try again
+            console.clear()
             $('#error').show()
             this.setState({ submitDisabled: false })
         }

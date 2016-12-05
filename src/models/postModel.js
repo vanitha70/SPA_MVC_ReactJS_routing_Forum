@@ -24,7 +24,7 @@ export default class Post {
             .then(createPostSuccess);
 
         function createPostSuccess(postInfo) {
-            views.initializeRating(postInfo._id, 0)
+            views.initializeViews(postInfo._id, 0)
             observer.showSuccess('Successful post created.')
             callback(true)
         }

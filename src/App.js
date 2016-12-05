@@ -1,5 +1,5 @@
 import React, {Component} from 'react'
-import Header from './components/common/Header'
+
 import NavigationBar from './components/common/Navbar'
 import Infobox from  './components/common/Infobox'
 import Footer from './components/common/Footer'
@@ -8,8 +8,8 @@ import './App.css';
 
 class App extends Component {
     constructor(props) {
-        super(props)
-        this.state = { loggedIn: false, username: '' }
+        super(props);
+        this.state = { loggedIn: false, username: '' };
         observer.onSessionUpdate = this.onSessionUpdate.bind(this)
     }
 
@@ -34,11 +34,8 @@ class App extends Component {
 	                           href="/profile"
 	            />
 	            <div className="container">
-		            <Header/>
-		            <div className="row">
-			            {this.props.children}
-			            <Infobox/>
-		            </div>
+		            {this.props.children}
+		            <Infobox/>
 	            </div>
 	            <hr/>
 	            <Footer/>

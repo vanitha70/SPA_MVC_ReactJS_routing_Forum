@@ -36,7 +36,8 @@ export default class User {
 				observer.onSessionUpdate();
 				observer.showSuccess('Successful registration.')
 				callback(true);
-			});
+			})
+			.catch((err)=> callback(false))
 	}
 	logout(callback) {
 		requester.post(kinvey.getUserModuleUrl() + '_logout', auth.getHeaders())

@@ -50,7 +50,7 @@ export default class CreateCommentPage extends Component {
 
     render() {
         return (
-            <div className="row">
+            <div>
                 <div className="page-header text-center">
                     <h2>Create Comment</h2>
                 </div>
