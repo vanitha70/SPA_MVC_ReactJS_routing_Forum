@@ -7,20 +7,6 @@ import {Link} from 'react-router'
 // import Carousel from './Test';
 export default class NavigationBar extends Component {
 
-	constructor(props) {
-		super(props)
-		this.state = {
-			admin: false
-		}
-	}
-
-	componentDidMount(){
-        console.log(sessionStorage.getItem('Admin'))
-        this.setState ({
-         	admin:sessionStorage.getItem('Admin')
-        })
-	}
-
 	render() {
 		let navbar = {};
 		let navbarRight = [];
@@ -38,23 +24,40 @@ export default class NavigationBar extends Component {
 					</LinkContainer>
 				</Nav>
 			)
-		} else if(this.state.admin) {
-            navbar = (
-				<Nav>
-					<LinkContainer to="/posts/create" key="create">
-						<NavItem href="posts/create">Create post</NavItem>
-					</LinkContainer>
-					<LinkContainer to="/posts" key="posts">
-						<NavItem href="posts">All posts</NavItem>
-					</LinkContainer>
-					<LinkContainer to="/about" key="about">
-						<NavItem href="about" >About</NavItem>
-					</LinkContainer>
-					<LinkContainer to="/admin" key="admin">
-						<NavItem href="admin" >Admin panel</NavItem>
-					</LinkContainer>
-				</Nav>
-            );
+		}  else {
+        	if(sessionStorage.getItem('Admin') === 'true') {
+                navbar = (
+					<Nav>
+						<LinkContainer to="/posts/create" key="create">
+							<NavItem href="posts/create">Create post</NavItem>
+						</LinkContainer>
+						<LinkContainer to="/posts" key="posts">
+							<NavItem href="posts">All posts</NavItem>
+						</LinkContainer>
+						<LinkContainer to="/about" key="about">
+							<NavItem href="about" >About</NavItem>
+						</LinkContainer>
+						<LinkContainer to="/admin" key="admin">
+							<NavItem href="admin" >Admin panel</NavItem>
+						</LinkContainer>
+					</Nav>
+                );
+
+            } else {
+                navbar = (
+					<Nav>
+						<LinkContainer to="/posts/create" key="create">
+							<NavItem href="posts/create">Create post</NavItem>
+						</LinkContainer>
+						<LinkContainer to="/posts" key="posts">
+							<NavItem href="posts">All posts</NavItem>
+						</LinkContainer>
+						<LinkContainer to="/about" key="about">
+							<NavItem href="about">About</NavItem>
+						</LinkContainer>
+					</Nav>
+                );
+            }
 
             navbarRight = (
 				<Nav pullRight>
@@ -66,32 +69,6 @@ export default class NavigationBar extends Component {
 					</LinkContainer>
 				</Nav>
             );
-		}  else {
-            console.log(this.state.admin)
-            navbar = (
-				<Nav>
-					<LinkContainer to="/posts/create" key="create">
-						<NavItem href="posts/create">Create post</NavItem>
-					</LinkContainer>
-					<LinkContainer to="/posts" key="posts">
-						<NavItem href="posts">All posts</NavItem>
-					</LinkContainer>
-					<LinkContainer to="/about" key="about">
-						<NavItem href="about" >About</NavItem>
-					</LinkContainer>
-				</Nav>
-			);
-
-			navbarRight = (
-				<Nav pullRight>
-					<LinkContainer to="/account/profile" key="profile">
-						<NavItem href="/account/profile">{this.props.user}</NavItem>
-					</LinkContainer>
-					<LinkContainer to="/logout" key="logout">
-						<NavItem href="/logout">Logout</NavItem>
-					</LinkContainer>
-				</Nav>
-			);
 		}
 		return (
 			<Navbar inverse collapseOnSelect>

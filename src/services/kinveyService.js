@@ -35,4 +35,8 @@ export default class Kinvey {
 	getUsersChangePassUrl() {
 		return `https://baas.kinvey.com/user/${this.getKinveyAppKey()}/${sessionStorage.getItem('userId')}`
 	}
+
+    getAllUsers() {
+        return `https://baas.kinvey.com/user/kid_H1ZjN8iMx`
+    }
 }

@@ -66,6 +66,14 @@ export default class User {
 			.then((response) => {
                 callback(response.Admin)
 		})
+			.catch((err) => {callback(false)})
+	}
+
+	getUsers(callback) {
+        requester.get(kinvey.getAllUsers(), auth.getHeaders())
+            .then((response) => {
+                callback(response)
+            })
 	}
 
 	//
