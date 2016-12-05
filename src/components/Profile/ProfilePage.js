@@ -16,7 +16,7 @@ export default class Profile extends Component {
     }
 
     componentDidMount() {
-	    postModule.getPostsById(this.onLoadSuccess);
+	    postModule.getPostsByUserId(this.onLoadSuccess);
 	    // the above can be achieved with the one below
 	    // postModule.query(`"_acl":{"creator": "${sessionStorage.getItem('userId')}"}`, null, this.onLoadSuccess);
     }

@@ -147,8 +147,8 @@ export default class Post {
 
     getPostsByUserId(callback) {
     	let queryUrl =
-		    kinvey.getCollectionModuleUrl('posts') + `?query={"_acl":{"creator":"${sessionStorage.getItem('userId')}"}}`;
-
+		    kinvey.getCollectionModuleUrl('posts') + `?query={"author":"${sessionStorage.getItem('username')}"}`;
+        console.log(queryUrl);
     	if (callback === undefined)
     	    return requester.get(queryUrl, auth.getHeaders());
 

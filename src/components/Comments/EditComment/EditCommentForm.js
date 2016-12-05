@@ -5,7 +5,7 @@ export default class EditCommentForm extends Component {
         return (
             <form className="form-horizontal" onSubmit={this.props.onSubmitHandler}>
                 <div className="form-group">
-                    <label className="col-md-5 control-label">Editing Comment:</label>
+                    <label className="col-md-5 control-label">Comment:</label>
                     <div className="col-md-3">
                         <input
                             className="form-control"
