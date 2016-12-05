@@ -27,16 +27,4 @@ export default class Kinvey {
 	getCollectionModuleUrl(collection) {
 		return `https://baas.kinvey.com/appdata/${this.getKinveyAppKey()}/${collection}`;
 	}
-
-	getQueryUrl() {
-		return  `https://baas.kinvey.com/appdata/${this.getKinveyAppKey()}/posts?query={"_acl":{"creator": "${sessionStorage.getItem('userId')}"}}`
-	}
-
-	getUsersChangePassUrl() {
-		return `https://baas.kinvey.com/user/${this.getKinveyAppKey()}/${sessionStorage.getItem('userId')}`
-	}
-
-    getAllUsers() {
-        return `https://baas.kinvey.com/user/kid_H1ZjN8iMx`
-    }
 }

@@ -71,7 +71,7 @@ export default class User {
 	}
 
 	getUsers(callback) {
-        requester.get(kinvey.getAllUsers(), auth.getHeaders())
+        requester.get(kinvey.getUserModuleUrl(), auth.getHeaders())
             .then((response) => {
                 callback(response)
             })
