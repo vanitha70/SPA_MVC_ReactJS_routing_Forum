@@ -38,7 +38,6 @@ class App extends Component {
 		            <div className="row">
 			            {this.props.children}
 			            <Infobox/>
-
 		            </div>
 	            </div>
 	            <hr/>
