@@ -22,3 +22,17 @@
   from { transform: rotate(0deg); }
   to { transform: rotate(360deg); }
 }
+
+.jumbotron {
+  width: 640px;
+  margin-top:10px;
+  position: absolute;
+}
+
+.child{
+  margin-top: 250px;
+}
+
+.row{
+  margin-top: 220px;
+}

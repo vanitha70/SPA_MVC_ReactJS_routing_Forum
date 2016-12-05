@@ -1,10 +1,10 @@
 import React, {Component} from 'react'
 import Header from './components/common/Header'
-import Navbar from './components/common/Navbar'
+import NavigationBar from './components/common/Navbar'
 import Infobox from  './components/common/Infobox'
 import Footer from './components/common/Footer'
-import {Link} from 'react-router'
 import observer from './models/observer'
+import './App.css';
 
 class App extends Component {
     constructor(props) {
@@ -26,41 +26,25 @@ class App extends Component {
         }
     }
 
-    render() {
-        let navbar = {}
-        if (!this.state.loggedIn) {
-            navbar = (
-                    <Navbar>
-                        <Link to="/" className="btn btn-default" activeClassName="btn btn-default active" onlyActiveOnIndex={true}>Home</Link>
-                        <Link to="/about" className="btn btn-default" activeClassName="btn btn-default active">About</Link>
-                        <Link to="/login" className="btn btn-default" activeClassName="btn btn-default active">Login</Link>
-                        <Link to="/register" className="btn btn-default" activeClassName="btn btn-default active">Register</Link>
-                    </Navbar>
-                )
-        } else {
-            navbar = (
-                <Navbar>
-                    <Link to="/" className="btn btn-default" activeClassName="btn btn-default active" onlyActiveOnIndex={true}>Home</Link>
-                    <Link to="/createPost" className="btn btn-default" activeClassName="btn btn-default active">Create post</Link>
-                    <Link to="/allPosts" className="btn btn-default" activeClassName="btn btn-default active">All posts</Link>
-                    <Link to="/about" className="btn btn-default" activeClassName="btn btn-default active">About</Link>
-                    <Link to="/logout" className="btn btn-default" activeClassName="btn btn-default active">Logout</Link>
-                    <Link to="/profile" className="btn btn-default" activeClassName="btn btn-default active">Hello, {this.state.username}</Link>
-                </Navbar>
-            )
-        }
-
-        return (
-            <div className="container">
-                <Header loggedIn={this.state.loggedIn} user={this.state.username}>
-                    {navbar}
-                </Header>
-                {this.props.children}
-                <Infobox/>
-                <Footer/>
+	render() {
+		return (
+            <div className="wrapper">
+	            <NavigationBar loggedIn={this.state.loggedIn}
+	                           user={this.state.username}
+	                           href="/profile"
+	            />
+	            <div className="container">
+		            <Header/>
+		            <div className="row">
+			            {this.props.children}
+			            <Infobox/>
+		            </div>
+	            </div>
+	            <hr/>
+	            <Footer/>
             </div>
-        )
-    }
+		)
+	}
 }
 
 export default App

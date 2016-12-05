@@ -24,8 +24,8 @@ export default class Kinvey {
 	// Returns https://baas.kinvey.com/appdata/kinveyAppKey/posts
 	//
 
-	getCollectionModuleUrl() {
-		return `https://baas.kinvey.com/appdata/${this.getKinveyAppKey()}/posts`;
+	getCollectionModuleUrl(collection) {
+		return `https://baas.kinvey.com/appdata/${this.getKinveyAppKey()}/${collection}`;
 	}
 
 	getQueryUrl() {

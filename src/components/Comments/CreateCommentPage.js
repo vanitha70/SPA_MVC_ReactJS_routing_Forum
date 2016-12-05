@@ -1,12 +1,13 @@
 import React, {Component} from 'react'
-import CreateForm from './CreatePostForm'
-import Post from '../../models/postModel'
-let post = new Post();
+import CreateForm from './CreateCommentForm'
+import Comment from '../../models/commentModel'
+import observer from '../../models/observer'
+let comment = new Comment();
 
-export default class CreatePostPage extends Component {
+export default class CreateCommentPage extends Component {
     constructor(props) {
         super(props)
-        this.state = { title: '', body: '', submitDisabled: false }
+        this.state = {body: '', submitDisabled: false}
         this.bindEventHandlers()
     }
 
@@ -19,9 +20,6 @@ export default class CreatePostPage extends Component {
 
     onChangeHandler(event) {
         switch (event.target.name) {
-            case 'title':
-                this.setState({ title: event.target.value })
-                break
             case 'content':
                 this.setState({ body: event.target.value })
                 break
@@ -32,18 +30,18 @@ export default class CreatePostPage extends Component {
 
     onSubmitHandler(event) {
         event.preventDefault()
-        if (this.state.title.length < 5 || this.state.body < 5) {
-            alert("Title and content must consist at least 5 digits")
+        if (this.state.body < 5) {
+            observer.showError("Comment consist at least 5 digits")
             return
         }
         this.setState({ submitDisabled: true })
-        post.createPost(this.state.title, this.state.body, sessionStorage.getItem('username'), this.onSubmitResponse)
+        comment.createComment(this.state.body, this.props.params.postId,sessionStorage.getItem('username'), this.onSubmitResponse)
     }
 
     onSubmitResponse(response) {
         if (response === true) {
             // Navigate away from createPost page
-            this.context.router.push('/allPosts')
+            this.context.router.push('/posts/details/'+this.props.params.postId);
         } else {
             // Something went wrong, let the user try again
             this.setState({ submitDisabled: true })
@@ -52,12 +50,11 @@ export default class CreatePostPage extends Component {
 
     render() {
         return (
-	        <div className="row">
-		        <div className="page-header text-center">
-			        <h2>Create Post</h2>
-		        </div>
+            <div className="row">
+                <div className="page-header text-center">
+                    <h2>Create Comment</h2>
+                </div>
                 <CreateForm
-                    title={this.state.title}
                     content={this.state.body}
                     submitDisabled={this.state.submitDisabled}
                     onChangeHandler={this.onChangeHandler}
@@ -68,6 +65,6 @@ export default class CreatePostPage extends Component {
     }
 }
 
-CreatePostPage.contextTypes = {
+CreateCommentPage.contextTypes = {
     router: React.PropTypes.object
 }

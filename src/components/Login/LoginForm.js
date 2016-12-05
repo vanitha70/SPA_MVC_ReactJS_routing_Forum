@@ -31,6 +31,7 @@ export default class LoginForm extends Component {
                             required
                         />
                     </div>
+                    <div id="error" style={{color:'red'}}>Invalid username or password!</div>
                     <div className="form-group">
                         <input className="btn btn-lg btn-primary btn-block btn-signin"
                                type="submit" value="Login"

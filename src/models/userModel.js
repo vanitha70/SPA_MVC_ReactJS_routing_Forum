@@ -21,8 +21,9 @@ export default class User {
 				observer.onSessionUpdate();
 				observer.showSuccess('Login successful.')
 				callback(true);
-			});
-	}
+			})
+			.catch((err)=> callback(false))
+    }
 
 	register(username, password, callback) {
 		let userData = {

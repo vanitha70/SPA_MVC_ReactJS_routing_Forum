@@ -1,14 +1,13 @@
 import React, {Component} from 'react'
-import Greeting from '../common/Greeting'
+import Carousel from './Test';
 
 export default class Header extends Component {
-    render() {
-        return (
-            <div className="jumbotron">
-                <h1>Forum</h1>
-                <Greeting user={this.props.user}/>
-                {this.props.children}
-            </div>
-        )
-    }
+	render() {
+		return (
+			<div className="col-md-6">
+				<h2>Forum</h2>
+				<Carousel/>
+			</div>
+		);
+	}
 }

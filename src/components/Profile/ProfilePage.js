@@ -1,5 +1,6 @@
 import React, {Component} from 'react'
 import Post from '../../models/postModel'
+import {Link} from 'react-router'
 let postModule = new Post();
 
 export default class Profile extends Component {
@@ -15,7 +16,9 @@ export default class Profile extends Component {
     }
 
     componentDidMount() {
-        postModule.getPostsById(this.onLoadSuccess)
+	    postModule.getPostsById(this.onLoadSuccess);
+	    // the above can be achieved with the one below
+	    // postModule.query(`"_acl":{"creator": "${sessionStorage.getItem('userId')}"}`, null, this.onLoadSuccess);
     }
 
     onLoadSuccess(response) {
@@ -23,8 +26,13 @@ export default class Profile extends Component {
     }
 
     action(post,userId){
+        let pathEdit = 'posts/edit/'+post._id
+        let pathAddComment = '/comments/'+post._id;
         if(post._acl.creator===userId){
-            return <td><input type="button"value="Delete"onClick={
+            return <td>
+                <Link to={pathAddComment} className="btn btn-success">Add Comment</Link>
+                <Link to={pathEdit} className="btn btn-default" activeClassName="btn btn-default active">Edit</Link>
+                <input className="btn btn-danger" type="button"value="Delete"onClick={
                 ()=>this.onActionHandler(post)}/></td>
         }
         return <td></td>
@@ -52,9 +60,8 @@ export default class Profile extends Component {
                 {this.action(post,sessionStorage.userId)}
             </tr>
         );
-
         return (
-            <div>
+            <div className="child">
                 <h1>{this.state.username}</h1>
                 <div><img src={this.state.img} alt="" width={150} height={150}/></div>
                 <h4>Your Posts</h4>

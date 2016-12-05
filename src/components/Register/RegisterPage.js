@@ -66,7 +66,7 @@ export default class RegisterPage extends Component {
         if (response === true) {
             // Navigate away from register page
 	        this.close()
-	        this.context.router.push('/allPosts')
+	        this.context.router.push('/posts')
         } else {
             // Something went wrong, let the user try again
             this.setState({ submitDisabled: true })
@@ -77,9 +77,9 @@ export default class RegisterPage extends Component {
         return (
             <Modal show={this.state.showModal} onHide={this.close}>
 	            <Modal.Header>
-			        <Modal.Title className="text-center">
-				        <h3>Please login</h3>
-			        </Modal.Title>
+		            <Modal.Title componentClass="h2" className="text-center">
+			            Register
+		            </Modal.Title>
 	            </Modal.Header>
 	            <Modal.Body>
 			        <RegisterForm

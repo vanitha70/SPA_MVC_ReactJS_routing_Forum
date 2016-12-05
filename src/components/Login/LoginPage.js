@@ -3,6 +3,7 @@ import LoginForm from './LoginForm'
 import User from '../../models/userModel'
 import Modal from 'react-bootstrap/lib/Modal'
 import Button from 'react-bootstrap/lib/Button'
+import $ from 'jquery'
 let user = new User();
 
 export default class LoginPage extends Component {
@@ -10,6 +11,10 @@ export default class LoginPage extends Component {
         super(props)
         this.state = { username: '', password: '', submitDisabled: false, showModal: true }
         this.bindEventHandlers()
+    }
+
+    componentDidMount() {
+        $('#error').hide()
     }
 
     close() {
@@ -43,7 +48,6 @@ export default class LoginPage extends Component {
     onSubmitHandler(event) {
         event.preventDefault()
         this.setState({ submitDisabled: true })
-	    console.log(user);
         user.login(this.state.username, this.state.password, this.onSubmitResponse)
     }
 
@@ -51,10 +55,11 @@ export default class LoginPage extends Component {
         if (response === true) {
             // Navigate away from login page
 	        this.close()
-            this.context.router.push('/allPosts')
+            this.context.router.push('/posts')
         } else {
             // Something went wrong, let the user try again
-            this.setState({ submitDisabled: true })
+            $('#error').show()
+            this.setState({ submitDisabled: false })
         }
     }
 
@@ -62,8 +67,8 @@ export default class LoginPage extends Component {
         return (
 	        <Modal show={this.state.showModal} onHide={this.close}>
 		        <Modal.Header>
-			        <Modal.Title className="text-center">
-				        <h3>Please login</h3>
+			        <Modal.Title componentClass="h2" className="text-center">
+				        Login
 			        </Modal.Title>
 		        </Modal.Header>
 	        <Modal.Body>
