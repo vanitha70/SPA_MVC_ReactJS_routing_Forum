@@ -35,7 +35,8 @@ export default class User {
 				observer.onSessionUpdate();
 				observer.showSuccess('Successful registration.')
 				callback(true);
-			});
+			})
+			.catch((err)=> callback(false))
 	}
 	changePassword (username, currentPass, password, callback){
 		let userData = {

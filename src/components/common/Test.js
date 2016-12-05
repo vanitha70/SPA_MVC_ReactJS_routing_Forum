@@ -1,6 +1,7 @@
 import React, {Component} from 'react'
 import Carousel from 'react-bootstrap/lib/Carousel';
-import $ from 'jquery';
+// import $ from 'jquery';
+
 export default class Test extends Component {
 	constructor(props) {
 		super(props);
@@ -13,8 +14,11 @@ export default class Test extends Component {
 			'http://static.economic.bg/news/6/58840/item_item12287281102012794467448881250204438o.jpg',
 			'http://www.investor.bg/images/photos/0185/0000185947-article3.jpg'
 		];
+		this.interval = null;
 		this.handleSelect = this.handleSelect.bind(this);
 		this.componentDidMount = this.componentDidMount.bind(this);
+		this.componentWillUnmount = this.componentWillUnmount.bind(this);
+		this.automate = this.automate.bind(this);
 	}
 
 	handleSelect(selectedIndex, e) {
@@ -22,10 +26,23 @@ export default class Test extends Component {
 			index: selectedIndex,
 			direction: e.direction
 		});
+		clearInterval(this.interval);
+		this.interval = setInterval(this.automate, 5000)
+	}
+
+	automate() {
+		if (this.state.index >= this.pictures.length - 1)
+			this.setState({index: 0});
+		else
+			this.setState({index: this.state.index + 1});
 	}
 
 	componentDidMount() {
+		this.interval = setInterval(this.automate, 5000)
+	}
 
+	componentWillUnmount() {
+		clearInterval(this.interval);
 	}
 
 	render() {

@@ -44,6 +44,7 @@ export default class RegisterForm extends Component {
                             required
                         />
                     </div>
+                    <div id="error" style={{color:'red'}}></div>
 	                <div className="form-group">
                             <input className="btn btn-lg btn-primary btn-block btn-signin"
                                 type="submit" value="Register"

@@ -3,6 +3,7 @@ import RegisterForm from './RegisterForm'
 import User from '../../models/userModel'
 import Modal from 'react-bootstrap/lib/Modal'
 import Button from 'react-bootstrap/lib/Button'
+import $ from 'jquery'
 let user = new User();
 
 export default class RegisterPage extends Component {
@@ -16,6 +17,10 @@ export default class RegisterPage extends Component {
 	        showModal: true
         };
         this.bindEventHandlers()
+    }
+
+    componentDidMount() {
+        $('#error').hide()
     }
 
     bindEventHandlers() {
@@ -51,25 +56,32 @@ export default class RegisterPage extends Component {
     onSubmitHandler(event) {
         event.preventDefault()
         if (this.state.password !== this.state.repeat) {
-            alert("Passwords don't match")
+            $('#error').show().text("Passwords don't match!")
+            return
+        } else if (this.state.password.length < 3) {
+            $('#error').show().text("Passwords must consist at least 3 symbols")
             return
         }
-        if(this.state.username === ''||this.state.password === ''){
-            alert("Please fill in all fields in order to proceed with your registration!")
-            return;
-        }
+        $('#error').hide()
         this.setState({ submitDisabled: true })
-        user.register(this.state.username, this.state.password, this.onSubmitResponse)
+        try {
+            user.register(this.state.username, this.state.password, this.onSubmitResponse)
+        } catch(err) {
+            console.log('cached')
+        }
     }
 
     onSubmitResponse(response) {
         if (response === true) {
             // Navigate away from register page
+            $('#error').hide()
 	        this.close()
 	        this.context.router.push('/posts')
         } else {
+            console.clear()
             // Something went wrong, let the user try again
-            this.setState({ submitDisabled: true })
+            $('#error').show().text("User with that name already exists!")
+            this.setState({ submitDisabled: false })
         }
     }
 

@@ -97,7 +97,7 @@ export default class AllPostsPage extends Component {
         );
 
         return (
-            <div className="child">
+            <div>
                 <div className="form-group">
                     <label>Select category:</label>
                     <select className="form-control" id="sel1" name="category" onChange={this.onChangeHandler}>
