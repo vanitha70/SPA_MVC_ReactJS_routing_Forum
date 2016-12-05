@@ -16,6 +16,7 @@ import Edit from './components/Posts/Edit post/EditPage';
 import Details from './components/Posts/DetailsPage';
 import CreateCommentPage from './components/Comments/CreateCommentPage';
 import ChangePass from './components/Profile/ChangePassPage'
+import AdminPanel from './components/Admin/Admin panel'
 
 ReactDOM.render(
     <Router history={browserHistory}>
@@ -32,6 +33,7 @@ ReactDOM.render(
             <Route path="logout" component={Logout}/>
             <Route path="account/profile" component={Profile}/>
             <Route path="profile/changePass" component={ChangePass}/>
+            <Route path="admin" component={AdminPanel}/>
         </Route>
     </Router>,
     document.getElementById('root')
