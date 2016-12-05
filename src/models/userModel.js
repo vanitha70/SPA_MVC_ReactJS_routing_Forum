@@ -16,7 +16,7 @@ export default class User {
 		};
 		requester.post(kinvey.getUserModuleUrl() + 'login', auth.getHeaders(), userData)
 			.then((response) => {
-				this.saveSession(response);
+				this.saveSession(response)
 				observer.onSessionUpdate();
 				observer.showSuccess('Login successful.')
 				callback(true);
@@ -61,11 +61,19 @@ export default class User {
 			});
 	}
 
+	checkAdmin(callback){
+		requester.get(kinvey.getUsersChangePassUrl(), auth.getHeaders())
+			.then((response) => {
+                callback(response.Admin)
+		})
+	}
+
 	//
 	// Makes sessionStorage items for the authtoken, userId, and username
 	//
 
 	saveSession(userInfo) {
+        sessionStorage.setItem('Admin', userInfo.Admin);
 		let userAuth = userInfo._kmd.authtoken;
 		sessionStorage.setItem('authToken', userAuth);
 		let userId = userInfo._id;

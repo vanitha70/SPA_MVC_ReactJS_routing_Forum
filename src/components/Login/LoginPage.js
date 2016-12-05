@@ -54,7 +54,7 @@ export default class LoginPage extends Component {
     onSubmitResponse(response) {
         if (response === true) {
             // Navigate away from login page
-	        this.close()
+            this.close()
             this.context.router.push('/posts')
         } else {
             // Something went wrong, let the user try again
