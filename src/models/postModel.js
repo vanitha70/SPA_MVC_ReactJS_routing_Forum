@@ -24,8 +24,8 @@ export default class Post {
             .then(createPostSuccess);
 
         function createPostSuccess(postInfo) {
-            views.initializeViews(postInfo._id, 0)
-            observer.showSuccess('Successful post created.')
+            views.initializeViews(postInfo._id, 0);
+            observer.showSuccess('Successful post created.');
             callback(true)
         }
     }
@@ -34,7 +34,7 @@ export default class Post {
         let ratingData = {
             postId,
             rating
-        }
+        };
 
         requester.post(kinvey.getCollectionModuleUrl('rating'), auth.getHeaders(), ratingData)
     }
@@ -42,8 +42,8 @@ export default class Post {
     deletePost(postId, callback) {
         requester.delete(kinvey.getCollectionModuleUrl('posts') + '/' + postId, auth.getHeaders())
             .then(() => {
-                views.deleteViews(postId)
-                observer.showSuccess('Post deleted.')
+                views.deleteViews(postId);
+                observer.showSuccess('Post deleted.');
                 callback(true, postId)
             });
     }
@@ -65,7 +65,7 @@ export default class Post {
 
     loadPostDetailsForEdit(postId, onPostSuccess){
         let data = [requester.get(kinvey.getCollectionModuleUrl('posts') + '/' + postId, auth.getHeaders()),
-            requester.get(kinvey.getCollectionModuleUrl('categories'), auth.getHeaders())]
+            requester.get(kinvey.getCollectionModuleUrl('categories'), auth.getHeaders())];
 
         Promise.all(data)
             .then(onPostSuccess)
@@ -73,7 +73,7 @@ export default class Post {
 
     loadPostDetails(postId, onPostSuccess) {
         requester.get(kinvey.getCollectionModuleUrl('rating') + `?query={"postId":"${postId}"}`, auth.getHeaders())
-            .then(getPostSetRating)
+            .then(getPostSetRating);
 
         function getPostSetRating(ratingData) {
             let actions = [
@@ -86,8 +86,8 @@ export default class Post {
             ]
             Promise.all(actions)
                 .then((data) => {
-                    let postData = data[0]
-                    postData['rating'] = data[1].rating
+                    let postData = data[0];
+                    postData['rating'] = data[1].rating;
                     postData['comments']=data[2];
                     onPostSuccess(postData)
                 })
@@ -96,7 +96,7 @@ export default class Post {
 
     getPostById(id, callback) {
     	if (callback === undefined)
-	    return requester.get(kinvey.getCollectionModuleUrl('posts') + '/' + id)
+	    return requester.get(kinvey.getCollectionModuleUrl('posts') + '/' + id);
 
 	    requester.get(kinvey.getCollectionModuleUrl('posts') + '/' + id)
 		    .then(post => callback(post));
@@ -145,13 +145,15 @@ export default class Post {
             });
     }
 
-    getPostsById(callback) {
-        requester.get(kinvey.getQueryUrl(), auth.getHeaders())
-            .then(listUsersPostsSuccess)
+    getPostsByUserId(callback) {
+    	let queryUrl =
+		    kinvey.getCollectionModuleUrl('posts') + `?query={"author":"${sessionStorage.getItem('username')}"}`;
+        console.log(queryUrl);
+    	if (callback === undefined)
+    	    return requester.get(queryUrl, auth.getHeaders());
 
-        function listUsersPostsSuccess(postsInfo) {
-            // observer.showSuccess('')
-            callback(postsInfo)
-        }
+    	requester.get(queryUrl, auth.getHeaders())
+		    .then(posts => callback(posts));
+
     }
 }

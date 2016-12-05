@@ -72,7 +72,9 @@ export default class EditCommentPage extends Component {
     render() {
         return (
             <div>
-                <h3>Edit Comment Page</h3>
+                <div className="page-header text-center">
+                    <h2>Edit Comment</h2>
+                </div>
                 <EditCommentForm
                     text={this.state.text}
                     submitDisabled={this.state.submitDisabled}
