@@ -17,7 +17,7 @@ export default class Kinvey {
 	//
 
 	getUserModuleUrl() {
-		return `https://baas.kinvey.com/user/${this.getKinveyAppKey()}/`
+		return `https://baas.kinvey.com/user/${this.getKinveyAppKey()}`
 	}
 
 	//
