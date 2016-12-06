@@ -17,7 +17,7 @@ export default class Kinvey {
 	//
 
 	getUserModuleUrl() {
-		return `https://baas.kinvey.com/user/${this.getKinveyAppKey()}/`
+		return `https://baas.kinvey.com/user/${this.getKinveyAppKey()}`
 	}
 
 	//
@@ -28,13 +28,6 @@ export default class Kinvey {
 		return `https://baas.kinvey.com/appdata/${this.getKinveyAppKey()}/${collection}`;
 	}
 
-	getQueryUrl() {
-		return  `https://baas.kinvey.com/appdata/${this.getKinveyAppKey()}/posts?query={"_acl":{"creator": "${sessionStorage.getItem('userId')}"}}`
-	}
-
-	getUsersChangePassUrl() {
-		return `https://baas.kinvey.com/user/${this.getKinveyAppKey()}/${sessionStorage.getItem('userId')}`
-	}
 
 	getUploadAvatarUrl() {
 		return `https://baas.kinvey.com/blob/${this.getKinveyAppKey()}`
