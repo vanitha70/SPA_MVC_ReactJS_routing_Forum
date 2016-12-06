@@ -31,6 +31,10 @@ export default class CategoriesWidget extends Component {
 	}
 
 	onCategoriesFetchSuccess(categories) {
+		categories.map(cat => {
+			cat.fullName = cat.name;
+			return cat;
+		});
 		// sort by name
 		categories = categories.sort((a, b) => a.name.localeCompare(b.name));
 		// cut name to 50 characters if it's more
@@ -51,6 +55,7 @@ export default class CategoriesWidget extends Component {
 			rightCatSet: categories,
 			leftCatSet: leftCatSet
 		});
+		console.log(leftCatSet);
 	}
 
 	render() {
@@ -62,7 +67,7 @@ export default class CategoriesWidget extends Component {
 						<ul className="list-group">
 							{
 								this.state.leftCatSet.map((cat, index)=>
-									<Link key={index} to={{pathname: "/posts", state: { selectedCategory: cat.name } }}>
+									<Link key={index} to={{pathname: "/posts", state: { selectedCategory: cat } }}>
 										<li className="list-group-item" key={cat._id}>
 											{cat.name}
 										</li>
@@ -75,7 +80,7 @@ export default class CategoriesWidget extends Component {
 						<ul className="list-group">
 							{
 								this.state.rightCatSet.map((cat, index)=>
-									<Link key={index} to={{pathname: "/posts", state: { selectedCategory: cat.name } }}>
+									<Link key={index} to={{pathname: "/posts", state: { selectedCategory: cat } }}>
 										<li className="list-group-item" key={cat._id}>
 											{cat.name}
 										</li>

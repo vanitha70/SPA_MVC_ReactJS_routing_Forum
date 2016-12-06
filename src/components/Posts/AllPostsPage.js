@@ -15,7 +15,9 @@ export default class AllPostsPage extends Component {
         this.state = {
             posts: [],
             pagePosts: [],
-            category: this.props.location.state.selectedCategory,
+            category: this.props.location.state !== undefined
+            ? this.props.location.state.selectedCategory.fullName
+	            : 'All',
             categories: [],
             total:       0,
             current:     0,
@@ -27,7 +29,7 @@ export default class AllPostsPage extends Component {
     onChangeHandler(event) {
         this.setState({
             category: event.target.value,
-            current: 1
+            current: 0
         })
         if(event.target.value !== 'All') {
             this.setState({
@@ -71,7 +73,9 @@ export default class AllPostsPage extends Component {
 	        categoryModule.getAllCategories(),
 	        viewModule.getAllViews()
 	    ];
-    	Promise.all(requests).then(this.onLoadSuccess)
+    	Promise.all(requests).then(this.onLoadSuccess).then(() => {
+		    this.onChangeHandler({ target: { value: this.state.category } });
+	    })
     }
 
     onLoadSuccess([posts, categories, views]) {
@@ -96,47 +100,53 @@ export default class AllPostsPage extends Component {
     }
 
     render() {
-    	console.log()
         let options = this.state.categories.map(category =>
             <option key={category._id}>{category.name}</option>
         );
+		let postRows = this.state.pagePosts.map(post =>
+			<tr key={post._id} onClick={() => {
+				browserHistory.push('posts/details/' + post._id)
+			}}>
+				<td>{post.title}</td>
+			    <td>{post.body}</td>
+			    <td>{post.author}</td>
+			    <td>{post.category}</td>
+			    <td>{new Date(Date.parse(post._kmd.lmt)).toLocaleString()}</td>
+			    <td>{post.rating}</td>
+		    </tr>
+		)
+	    let table = (
+		    <table className="table table-hover">
+			    <thead>
+			    <tr>
+				    <th>Title</th>
+				    <th>Body</th>
+				    <th>Author</th>
+				    <th>Category</th>
+				    <th>Published date:</th>
+				    <th>Views</th>
+			    </tr>
+			    </thead>
+			    <tbody>
+			    {postRows}
+			    </tbody>
+		    </table>
+	    );
 
-        let postRows = this.state.pagePosts.map(post =>
-            <tr key={post._id} onClick={() => {browserHistory.push('posts/details/'+post._id)}}>
-                <td>{post.title}</td>
-                <td>{post.body}</td>
-                <td>{post.author}</td>
-                <td>{post.category}</td>
-                <td>{new Date(Date.parse(post._kmd.lmt)).toLocaleString()}</td>
-                <td>{post.rating}</td>
-            </tr>
-        );
+	    if (this.state.pagePosts.length === 0)
+	    	table = <div>Empty</div>
 
         return (
             <div>
                 <div className="form-group">
                     <label>Select category:</label>
-                    <select defaultValue={this.state.category} className="form-control" id="sel1" name="category" onChange={this.onChangeHandler}>
+                    <select value={this.state.category} className="form-control" id="sel1" name="category" onChange={this.onChangeHandler}>
                         <option key="empty">All</option>
                         {options}
                     </select>
                 </div>
-                <h1>All Posts</h1>
-                <table className="table table-hover">
-                    <thead>
-                    <tr>
-                        <th>Title</th>
-                        <th>Body</th>
-                        <th>Author</th>
-                        <th>Category</th>
-                        <th>Published date:</th>
-                        <th>Views</th>
-                    </tr>
-                    </thead>
-                    <tbody>
-                    {postRows}
-                    </tbody>
-                </table>
+                <h2>{this.state.category}</h2>
+	            {table}
                 <Pager
                     total={this.state.total}
                     current={this.state.current}
@@ -147,8 +157,4 @@ export default class AllPostsPage extends Component {
             </div>
         )
     }
-}
-
-AllPostsPage.contextTypes = {
-    router: React.PropTypes.object
 }
