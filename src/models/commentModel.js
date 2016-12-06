@@ -43,4 +43,24 @@ export default class Comment {
             callback(comments)
         }
     }
+
+    loadCommentDetails(commentId,onPostSuccess){
+        requester.get(kinvey.getCollectionModuleUrl('comments')+'/'+commentId,auth.getHeaders())
+            .then(onPostSuccess);
+    }
+
+    editComment(commentId,text,postId,author, callback) {
+        let commentData = {
+            text: text,
+            postId:postId,
+            author:author
+        };
+        requester.put(kinvey.getCollectionModuleUrl('comments') + '/' + commentId, auth.getHeaders(), commentData)
+            .then(callback(true))
+    }
+
+    deleteCommentsByPostId(postId,callback){
+        requester.delete(kinvey.getCollectionModuleUrl('comments')+`?query={"postId":"${postId}"}`,auth.getHeaders())
+            .then(callback(true));
+    }
 }

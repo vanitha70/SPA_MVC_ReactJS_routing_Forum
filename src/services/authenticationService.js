@@ -18,4 +18,21 @@ export default class AuthenticationService {
 
 		return headers;
 	}
+
+	changePassHeaders(username, password){
+        let headers = {
+            'Content-Type': 'application/json',
+            'Authorization': 'Basic ' + btoa(username + ":" + password)
+        }
+        return headers
+	}
+
+	getAvatarUploadHeaders(file){
+        let headers = {
+            'Content-Type': 'application/json',
+            'Authorization': 'Kinvey ' + this.getAuthToken(),
+			'X-Kinvey-Content-Type': file.type
+        }
+        return headers
+	}
 }

@@ -24,7 +24,7 @@ export default class DetailsPage extends Component {
         this.onLoadSuccess = this.onLoadSuccess.bind(this)
         this.onActionHandler = this.onActionHandler.bind(this)
         this.onDeleteCommentActionHandler = this.onDeleteCommentActionHandler.bind(this)
-        this.deleteCommentAction = this.deleteCommentAction.bind(this)
+        this.commentActions = this.commentActions.bind(this)
         this.onDeleteCommentResponse = this.onDeleteCommentResponse.bind(this)
         this.onLoadCommentsSuccess = this.onLoadCommentsSuccess.bind(this)
     }
@@ -49,7 +49,7 @@ export default class DetailsPage extends Component {
             for (let i in comments) {
                 if (comments !== []) {
                     commentsToPrint.push(<div key={i}>{comments[i].text} by <strong key={i}>{comments[i].author}</strong> on
-                            {comments[i]._kmd.lmt.slice(0, 16).replace('T', '-')} {this.deleteCommentAction(comments[i], sessionStorage.userId)}
+                            {comments[i]._kmd.lmt.slice(0, 16).replace('T', '-')} {this.commentActions(comments[i], sessionStorage.userId)}
                         </div>)
 
                 }
@@ -60,6 +60,7 @@ export default class DetailsPage extends Component {
 
     onActionHandler(post) {
         postModule.deletePost(post._id, this.onDeleteResponse)
+        commentModule.deleteCommentsByPostId(post._id, this.onDeleteResponse)
     }
 
     onDeleteResponse(response, id) {
@@ -80,10 +81,14 @@ export default class DetailsPage extends Component {
         }
     }
 
-    deleteCommentAction(comment, userId) {
+    commentActions(comment, userId) {
+        let commentEditPath = '../../comments/edit/'+comment._id;
+
         if (comment._acl.creator === userId) {
-            return <input className="btn btn-danger" type="button" value="Delete my comment"
+            return <div><input className="btn btn-danger" type="button" value="Delete my comment"
                           onClick={() => this.onDeleteCommentActionHandler(comment)}/>
+                <Link to={commentEditPath} className="btn btn-default"activeClassName="btn btn-default active">Edit my comment</Link>
+            </div>
         }
     }
 

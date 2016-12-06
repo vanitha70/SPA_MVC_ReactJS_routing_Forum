@@ -2,7 +2,9 @@ import React, {Component} from 'react'
 import CreateForm from './CreatePostForm'
 import Post from '../../../models/postModel'
 import observer from '../../../models/observer'
+import Category from '../../../models/categoryModel';
 let post = new Post();
+let categoryModule = new Category();
 
 export default class CreatePostPage extends Component {
     constructor(props) {
@@ -12,7 +14,7 @@ export default class CreatePostPage extends Component {
     }
 
     componentDidMount() {
-        post.getAllCategories(this.loadCategories)
+        categoryModule.getAllCategories(this.loadCategories)
     }
 
     loadCategories(data){

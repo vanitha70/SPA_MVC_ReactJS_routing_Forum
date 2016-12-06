@@ -6,17 +6,25 @@ let postModule = new Post();
 export default class Profile extends Component {
     constructor(props) {
         super(props)
-        this.state = { posts: [], username: sessionStorage.getItem('username'), img:require('../../../public/whatsapp-walpaper-anymouse.jpg')}
+        this.state = { posts: [], username: sessionStorage.getItem('username'), img:this.avatarRendering()}
         this.bindEventHandlers()
     }
 
     bindEventHandlers() {
-        this.onLoadSuccess = this.onLoadSuccess.bind(this);
-        this.onActionResponse=this.onActionResponse.bind(this);
+        this.onLoadSuccess = this.onLoadSuccess.bind(this)
+        this.onActionResponse = this.onActionResponse.bind(this)
+        this.avatarRendering = this.avatarRendering.bind(this)
+    }
+
+    avatarRendering (){
+        if (sessionStorage.getItem('avatar')){
+            return sessionStorage.getItem('avatar')
+        }
+        return "//ssl.gstatic.com/accounts/ui/avatar_2x.png"
     }
 
     componentDidMount() {
-	    postModule.getPostsById(this.onLoadSuccess);
+	    postModule.getPostsByUserId(this.onLoadSuccess);
 	    // the above can be achieved with the one below
 	    // postModule.query(`"_acl":{"creator": "${sessionStorage.getItem('userId')}"}`, null, this.onLoadSuccess);
     }
@@ -63,15 +71,17 @@ export default class Profile extends Component {
         return (
             <div>
                 <h1>{this.state.username}</h1>
-                <div><img src={this.state.img} alt="" width={150} height={150}/></div>
+                <div><img id="profile-img" alt="Profile" className="profile-img-card" src={this.state.img} /></div>
+                <div><Link to="profile/changePass" className="btn btn-default" activeClassName="btn btn-default active">Change password</Link> </div>
+                <div><Link to="profile/changeAvatar" className="btn btn-default" activeClassName="btn btn-default active">Change Avatar</Link> </div>
                 <h4>Your Posts</h4>
-                <table>
+                <table className="table table-hover">
                     <thead>
                     <tr>
                         <th>Title</th>
                         <th>Body</th>
-                        <th>Author</th>
-                        <th>Post Rating</th>
+                        <th></th>
+                        <th></th>
                         <th>Actions</th>
                     </tr>
                     </thead>

@@ -1,7 +1,7 @@
 import React, {Component} from 'react'
 import CreateForm from './CreateCommentForm'
-import Comment from '../../models/commentModel'
-import observer from '../../models/observer'
+import Comment from '../../../models/commentModel'
+import observer from '../../../models/observer'
 let comment = new Comment();
 
 export default class CreateCommentPage extends Component {
@@ -30,7 +30,7 @@ export default class CreateCommentPage extends Component {
 
     onSubmitHandler(event) {
         event.preventDefault()
-        if (this.state.body < 5) {
+        if (this.state.body.length < 5) {
             observer.showError("Comment consist at least 5 digits")
             return
         }
