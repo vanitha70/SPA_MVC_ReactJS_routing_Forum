@@ -69,7 +69,12 @@ export default class CreatePostPage extends Component {
             // Navigate away from createPost page
             this.context.router.push('/posts')
         } else {
-            observer.showError("Please register or login first!")
+            console.clear()
+            if(sessionStorage.getItem('username') === 'guest'){
+                observer.showError("Please register or login first!")
+            } else {
+                observer.showError("Sorry you are banned, please contact administrator for more info!")
+            }
             // Something went wrong, let the user try again
             this.setState({ submitDisabled: false })
         }

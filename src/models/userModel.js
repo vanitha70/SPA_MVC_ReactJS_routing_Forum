@@ -27,19 +27,26 @@ export default class User {
     }
 
 	register(username, password, callback) {
-		let userData = {
-			username: username,
-			password: password
-		};
-		requester.post(kinvey.getUserModuleUrl(), auth.getHeaders(), userData)
-			.then((response) => {
-				this.saveSession(response);
-				observer.onSessionUpdate();
-				observer.showSuccess('Successful registration.');
-				callback(true);
-			})
-			.catch((err)=> callback(false))
-	}
+
+        this.logout(reg)
+
+        let userData = {
+            username: username,
+            password: password
+        }
+
+        let that = this
+		function reg() {
+			requester.post(kinvey.getUserModuleUrl(), auth.getHeaders(), userData)
+				.then((response) => {
+					that.saveSession(response);
+					observer.onSessionUpdate();
+					observer.showSuccess('Successful registration.');
+					callback(true);
+				})
+				.catch((err) => callback(false))
+		}
+    }
 	changePassword (username, currentPass, password, callback) {
 		let url = kinvey.getUserModuleUrl() + `/${sessionStorage.getItem('userId')}`;
 		let userData = {
@@ -100,6 +107,14 @@ export default class User {
             })
             .catch((err)=> console.log(err))
 	}
+
+	bannUser(user, callback) {
+		let data = {
+			user:user.username
+		}
+        requester.post(kinvey.getCollectionModuleUrl('bannedUsers'), auth.getHeaders(), data)
+			.then((res)=> (console.log(res)))
+    }
 
 	//
 	// Makes sessionStorage items for the authtoken, userId, and username

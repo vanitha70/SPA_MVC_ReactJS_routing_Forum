@@ -38,6 +38,7 @@ export default class Users extends Component {
         this.onChangeHandler = this.onChangeHandler.bind(this);
         this.onLoadSuccess = this.onLoadSuccess.bind(this);
         this.handlePageChanged = this.handlePageChanged.bind(this);
+        this.bannUser = this.bannUser.bind(this);
     }
 
     componentDidMount() {
@@ -54,6 +55,10 @@ export default class Users extends Component {
         })
     }
 
+    bannUser(user) {
+        userModule.bannUser(user, this.componentDidMount())
+    }
+
     render() {
 
         let userRows = this.state.pageUsers.map(user =>
@@ -61,6 +66,10 @@ export default class Users extends Component {
                 <td>{user.username}</td>
                 <td>{new Date(Date.parse(user._kmd.lmt)).toLocaleString()}</td>
                 <td>{user.Admin.toString()}</td>
+                <td>...</td>
+                <td>
+                    <button className="btn btn-danger" onClick={() => this.bannUser(user)}>Bann user</button>
+                </td>
             </tr>
         );
 
@@ -73,6 +82,8 @@ export default class Users extends Component {
                         <th>User name</th>
                         <th>Date of registration </th>
                         <th>Admin</th>
+                        <th>Banned</th>
+                        <th>Actions</th>
                     </tr>
                     </thead>
                     <tbody>
