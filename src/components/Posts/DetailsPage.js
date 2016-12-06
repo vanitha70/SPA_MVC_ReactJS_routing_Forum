@@ -56,7 +56,7 @@ export default class DetailsPage extends Component {
             for (let i in comments) {
                 if (comments !== []) {
                     commentsToPrint.push(<div key={i}>{comments[i].text} by <strong key={i}>{comments[i].author}</strong> on
-                            {comments[i]._kmd.lmt.slice(0, 16).replace('T', '-')} {this.commentActions(comments[i], sessionStorage.userId)}
+                              {new Date(Date.parse(comments[i]._kmd.lmt)).toLocaleString()} {this.commentActions(comments[i], sessionStorage.userId)}
                         </div>)
 
                 }
@@ -90,8 +90,7 @@ export default class DetailsPage extends Component {
 
     commentActions(comment, userId) {
         let commentEditPath = '../../comments/edit/'+comment._id;
-
-        if (comment._acl.creator === userId) {
+        if (comment._acl.creator === userId || sessionStorage.getItem('Admin')==='true') {
             return <div><input className="btn btn-danger" type="button" value="Delete my comment"
                           onClick={() => this.onDeleteCommentActionHandler(comment)}/>
                 <Link to={commentEditPath} className="btn btn-default"activeClassName="btn btn-default active">Edit my comment</Link>

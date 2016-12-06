@@ -6,7 +6,7 @@ export default class Footer extends Component {
         return (
             <section className="footer col-md-12">
                 <div>
-                (c) 2016 - SoftUni Forum (ReactJS MVC App)
+                &copy; 2016 - SoftUni Forum (ReactJS MVC App)
                 </div>
             </section>
         )

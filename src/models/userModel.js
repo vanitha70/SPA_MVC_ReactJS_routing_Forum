@@ -36,6 +36,7 @@ export default class User {
 				this.saveSession(response);
 				observer.onSessionUpdate();
 				observer.showSuccess('Successful registration.');
+				sessionStorage.removeItem('avatar');
 				callback(true);
 			})
 			.catch((err)=> callback(false))
@@ -97,6 +98,7 @@ export default class User {
             .then((response) => {
                 this.saveSession(response);
                 observer.onSessionUpdate();
+                sessionStorage.removeItem('avatar');
             })
             .catch((err)=> console.log(err))
 	}
