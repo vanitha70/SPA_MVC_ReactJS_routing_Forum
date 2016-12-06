@@ -5,15 +5,10 @@ import CategoryWidget from '../Widgets/CategoryWidget/CategoryWidget'
 
 export default class HomePage extends Component {
     render() {
-        let message = <p>You are currently not logged in. Please, log in or register to view team options.</p>
-
-        if (sessionStorage.getItem('username')) {
-            if (sessionStorage.getItem('teamId')) {
-            } else {
-                message = <p>You are currently not a member of a team. View the <Link to="/catalog">catalog</Link> to join or create one.</p>
-            }
+        let message = "";
+        if (sessionStorage.getItem('username')=== "guest") {
+                message = <p>You are currently not a member of this forum. Click <Link to="/account/register">here</Link> to join us.</p>
         }
-
         return (
 	        <div className="homepage container-fluid">
 		        <div className="col-md-8">
