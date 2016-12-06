@@ -15,7 +15,7 @@ export default class AllPostsPage extends Component {
         this.state = {
             posts: [],
             pagePosts: [],
-            category: 'All',
+            category: this.props.location.state.selectedCategory,
             categories: [],
             total:       0,
             current:     0,
@@ -27,7 +27,7 @@ export default class AllPostsPage extends Component {
     onChangeHandler(event) {
         this.setState({
             category: event.target.value,
-            current: 0
+            current: 1
         })
         if(event.target.value !== 'All') {
             this.setState({
@@ -96,6 +96,7 @@ export default class AllPostsPage extends Component {
     }
 
     render() {
+    	console.log()
         let options = this.state.categories.map(category =>
             <option key={category._id}>{category.name}</option>
         );
@@ -115,7 +116,7 @@ export default class AllPostsPage extends Component {
             <div>
                 <div className="form-group">
                     <label>Select category:</label>
-                    <select className="form-control" id="sel1" name="category" onChange={this.onChangeHandler}>
+                    <select defaultValue={this.state.category} className="form-control" id="sel1" name="category" onChange={this.onChangeHandler}>
                         <option key="empty">All</option>
                         {options}
                     </select>

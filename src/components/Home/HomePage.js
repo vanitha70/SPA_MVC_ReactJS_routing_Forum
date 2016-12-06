@@ -1,6 +1,7 @@
 import React, {Component} from 'react'
 import {Link} from 'react-router'
 import Header from '../common/Header'
+import CategoryWidget from '../Widgets/CategoryWidget/CategoryWidget'
 
 export default class HomePage extends Component {
     render() {
@@ -14,11 +15,13 @@ export default class HomePage extends Component {
         }
 
         return (
-            <div className="col-md-8">
-                <h1>Home Page</h1>
-	            <Header/>
-	            {message}
-            </div>
+	        <div className="homepage container-fluid">
+		        <div className="col-md-8">
+			        <Header/>
+			        {message}
+		        </div>
+		        <CategoryWidget/>
+	        </div>
         );
     }
 }
