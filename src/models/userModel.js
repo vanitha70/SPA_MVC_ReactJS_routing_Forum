@@ -2,11 +2,13 @@ import Requester from './requestModel';
 import Kinvey from '../services/kinveyService';
 import AuthenticationService from '../services/authenticationService';
 import observer from './observer'
+import Avatar from './avatarModel'
 
 let requester = new Requester();
 let kinvey = new Kinvey();
 let auth =
 	new AuthenticationService(kinvey.getKinveyAppKey(), kinvey.getKinveySecret());
+let avatar = new Avatar()
 
 export default class User {
 	login(username, password, callback) {
@@ -99,6 +101,7 @@ export default class User {
 		let username = userInfo.username;
 		sessionStorage.setItem('username', username);
 		sessionStorage.setItem('teamId', userInfo.teamId);
+		avatar.setAvatarInSession()
 
 		observer.onSessionUpdate()
 	}
