@@ -4,9 +4,11 @@ import View from '../../models/viewsModel';
 import Category from '../../models/categoryModel';
 import Pager from 'react-pager';
 import { browserHistory } from 'react-router'
+import Utilities from '../../utilities/utilities'
 let postModule = new Post();
 let viewModule = new View();
 let categoryModule = new Category();
+let utilities = new Utilities()
 
 
 export default class AllPostsPage extends Component {
@@ -111,8 +113,8 @@ export default class AllPostsPage extends Component {
 			<tr key={post._id} onClick={() => {
 				browserHistory.push('posts/details/' + post._id)
 			}}>
-				<td>{post.title}</td>
-			    <td>{post.body}</td>
+				<td>{utilities.showLess(post.title, 20)}</td>
+			    <td>{utilities.showLess(post.body, 50)}</td>
 			    <td>{post.author}</td>
 			    <td>{post.category}</td>
 			    <td>{new Date(Date.parse(post._kmd.lmt)).toLocaleString()}</td>

@@ -41,6 +41,12 @@
   width:100%;
 }
 
+.cut-text {
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  overflow: hidden;
+}
+
 /*.well-header {*/
   /*background-color: #888888;*/
 /*}*/

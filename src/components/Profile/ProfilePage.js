@@ -2,7 +2,9 @@ import React, {Component} from 'react'
 import Post from '../../models/postModel'
 import {Link} from 'react-router'
 import observer from '../../models/observer'
+import Utilities from '../../utilities/utilities'
 let postModule = new Post();
+let utilities = new Utilities()
 
 export default class Profile extends Component {
     constructor(props) {
@@ -70,8 +72,8 @@ export default class Profile extends Component {
     render() {
         let postRows = this.state.posts.map(post =>
             <tr key={post._id}>
-                <td>{post.title}</td>
-                <td>{post.body}</td>
+                <td>{utilities.showLess(post.title, 20)}</td>
+                <td>{utilities.showLess(post.body, 50)}</td>
                 <td></td>
                 <td></td>
                 {this.action(post,sessionStorage.userId)}
