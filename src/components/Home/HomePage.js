@@ -2,6 +2,7 @@ import React, {Component} from 'react'
 import {Link} from 'react-router'
 import Header from '../common/Header'
 import CategoryWidget from '../Widgets/CategoryWidget/CategoryWidget'
+import LatestPostsWidget from '../Widgets/LatestPostsWidget/LatestPostsWidget'
 
 export default class HomePage extends Component {
     render() {
@@ -16,6 +17,7 @@ export default class HomePage extends Component {
 			        {message}
 		        </div>
 		        <CategoryWidget/>
+		        <LatestPostsWidget/>
 	        </div>
         );
     }
