@@ -25,7 +25,7 @@ export default class Avatar {
         }
         requester.get(kinvey.getUploadAvatarUrl() + `?query={"_acl":{"creator":"${sessionStorage.getItem('userId')}"}}`, auth.getHeaders())
             .then((data) => {
-                if (data._id === undefined) {
+                if (data[0]=== undefined) {
                     requester.post(kinvey.getUploadAvatarUrl(), auth.getAvatarUploadHeaders(file), metaData)
                         .then(putToGoogleApi)
                         .catch(() => {
