@@ -33,23 +33,28 @@
   margin-top: 250px;
 }
 
-.test {
-  position:absolute;
-  top:300px;
-  z-index:10;
-  background:#fff;
-  width:100%;
+.post-body {
+    white-space: nowrap;
+    color: #3366BB;
+    text-decoration: none;
+    overflow: hidden;
+    text-overflow: clip;
 }
 
-.cut-text {
-  text-overflow: ellipsis;
-  white-space: nowrap;
-  overflow: hidden;
+.btn-custom {
+    background-color: transparent;
+    text-decoration: none;
+    color: #3366BB;
+    transition: .2s ease;
 }
 
-/*.well-header {*/
-  /*background-color: #888888;*/
-/*}*/
-/*.well-body {*/
-    /*text-overflow: clip;*/
-/*}*/
+.btn-custom:hover {
+    background-color: #73B1E1 !important;
+    border-color: #3366BB;
+    color: white !important;
+    transition: .5s ease;
+}
+
+.table td:hover {
+    cursor: pointer;
+}
