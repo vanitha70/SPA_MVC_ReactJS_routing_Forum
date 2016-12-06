@@ -34,10 +34,11 @@ ReactDOM.render(
             <Route path="../../comments/edit/:commentId" component={EditComment}/>
             <Route path="posts/details/:postId" component={Details}/>
             <Route path="logout" component={Logout}/>
-            <Route path="account/profile" component={Profile}/>
-            <Route path="profile/changePass" component={ChangePass}/>
+            <Route path="account/profile" component={Profile}>
+                <Route path="changePass" component={ChangePass}/>
+                <Route path="changeAvatar" component={ChangeAvatar}/>
+            </Route>
             <Route path="admin" component={AdminPanel}/>
-            <Route path="profile/changeAvatar" component={ChangeAvatar}/>
         </Route>
     </Router>,
     document.getElementById('root')

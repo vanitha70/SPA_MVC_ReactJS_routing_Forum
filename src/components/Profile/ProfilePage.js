@@ -1,6 +1,7 @@
 import React, {Component} from 'react'
 import Post from '../../models/postModel'
 import {Link} from 'react-router'
+import observer from '../../models/observer'
 let postModule = new Post();
 
 export default class Profile extends Component {
@@ -8,12 +9,14 @@ export default class Profile extends Component {
         super(props)
         this.state = { posts: [], username: sessionStorage.getItem('username'), img:this.avatarRendering()}
         this.bindEventHandlers()
+        observer.onAvatarChange = this.onAvatarChange
     }
 
     bindEventHandlers() {
         this.onLoadSuccess = this.onLoadSuccess.bind(this)
         this.onActionResponse = this.onActionResponse.bind(this)
         this.avatarRendering = this.avatarRendering.bind(this)
+        this.onAvatarChange = this.onAvatarChange.bind(this)
     }
 
     avatarRendering (){
@@ -21,6 +24,12 @@ export default class Profile extends Component {
             return sessionStorage.getItem('avatar')
         }
         return "//ssl.gstatic.com/accounts/ui/avatar_2x.png"
+    }
+
+    onAvatarChange(){
+        this.setState({
+            img: this.avatarRendering()
+        })
     }
 
     componentDidMount() {
@@ -72,8 +81,8 @@ export default class Profile extends Component {
             <div>
                 <h1>{this.state.username}</h1>
                 <div><img id="profile-img" alt="Profile" className="profile-img-card" src={this.state.img} /></div>
-                <div><Link to="profile/changePass" className="btn btn-default" activeClassName="btn btn-default active">Change password</Link> </div>
-                <div><Link to="profile/changeAvatar" className="btn btn-default" activeClassName="btn btn-default active">Change Avatar</Link> </div>
+                <div><Link to="/account/profile/changePass" className="btn btn-default" activeClassName="btn btn-default active">Change password</Link> </div>
+                <div><Link to="/account/profile/changeAvatar" className="btn btn-default" activeClassName="btn btn-default active">Change Avatar</Link> </div>
                 <h4>Your Posts</h4>
                 <table className="table table-hover">
                     <thead>
@@ -89,6 +98,7 @@ export default class Profile extends Component {
                     {postRows}
                     </tbody>
                 </table>
+                {this.props.children}
             </div>
         )
     }

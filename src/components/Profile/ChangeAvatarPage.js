@@ -1,12 +1,11 @@
 import React, {Component} from 'react'
 import ChangeAvatarForm from './ChangeAvatarForm'
-// import User from '../../models/userModel'
 import Modal from 'react-bootstrap/lib/Modal'
 import Button from 'react-bootstrap/lib/Button'
 import {browserHistory} from 'react-router'
 import Avatar from '../../models/avatarModel'
+import observer from '../../models/observer'
 
-// let user = new User();
 let avatar = new Avatar();
 
 export default class ChangeAvatarPage extends Component {
@@ -22,7 +21,6 @@ export default class ChangeAvatarPage extends Component {
     }
 
     bindEventHandlers() {
-        // Make sure event handlers have the correct context
         this.onChangeHandler = this.onChangeHandler.bind(this)
         this.onSubmitHandler = this.onSubmitHandler.bind(this)
         this.onSubmitResponse = this.onSubmitResponse.bind(this)
@@ -32,8 +30,6 @@ export default class ChangeAvatarPage extends Component {
     close() {
         this.setState({showModal: false});
         browserHistory.push('/account/profile')
-        // if (this.state.img === '')
-        //     browserHistory.push('/account/profile')
     }
 
     onChangeHandler(event) {
@@ -42,14 +38,15 @@ export default class ChangeAvatarPage extends Component {
 
     onSubmitHandler(event) {
         event.preventDefault()
+        this.close()
+        //console.log(this.state.file)
         avatar.uploadFile(this.state.file, this.onSubmitResponse)
-
-
     }
 
     onSubmitResponse(response) {
         sessionStorage.setItem('avatar', response._downloadURL)
-        this.close()
+        observer.onAvatarChange()
+        browserHistory.push('/account/profile')
     }
 
     render() {

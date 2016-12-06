@@ -8,6 +8,7 @@ let requester = new Requester();
 let kinvey = new Kinvey();
 let auth =
     new AuthenticationService(kinvey.getKinveyAppKey(), kinvey.getKinveySecret());
+let fileTypes = ['image/jpeg', 'image/png', 'image/jpg']
 
 export default class Avatar {
 
@@ -15,16 +16,32 @@ export default class Avatar {
         let metaData = {
             "_filename": file.name,
             "size": file.size,
-            "mimeType": file.mimeType
+            "mimeType": file.type
+        }
+
+        if (!fileTypes.includes(file.type)) {
+            observer.showError('File is not in the correct format.')
+            return
         }
         requester.get(kinvey.getUploadAvatarUrl() + `?query={"_acl":{"creator":"${sessionStorage.getItem('userId')}"}}`, auth.getHeaders())
             .then((data) => {
-                console.log(data)
-                requester.delete(kinvey.getUploadAvatarUrl() + `/${data[0]._id}`, auth.getHeaders())
+                if (data._id === undefined) {
+                    requester.post(kinvey.getUploadAvatarUrl(), auth.getAvatarUploadHeaders(file), metaData)
+                        .then(putToGoogleApi)
+                        .catch(() => {
+                            observer.showError('Please, check your internet connection.')
+                        })
+                } else {
+                    requester.delete(kinvey.getUploadAvatarUrl() + `/${data[0]._id}`, auth.getHeaders())
+                        .then(() => {
+                            requester.post(kinvey.getUploadAvatarUrl(), auth.getAvatarUploadHeaders(file), metaData)
+                                .then(putToGoogleApi)
+                                .catch(() => {
+                                    observer.showError('Please, check your internet connection.')
+                                })
+                        })
+                }
             })
-
-        requester.post(kinvey.getUploadAvatarUrl(), auth.getAvatarUploadHeaders(file), metaData)
-            .then(putToGoogleApi)
 
         function putToGoogleApi(data) {
             let googleHeaders = data._requiredHeaders
@@ -40,8 +57,8 @@ export default class Avatar {
                 .then(() => {
                     getGoogleUrl()
                 })
-                .catch((error) => {
-                    console.log(error)
+                .catch(() => {
+                    observer.showError('Please, check your internet connection.')
                 })
 
         }
@@ -51,8 +68,8 @@ export default class Avatar {
                 .then((data) => {
                     callback(data[0])
                 })
-                .catch((error) => {
-                    console.log(error)
+                .catch(() => {
+                    observer.showError('Please, check your internet connection.')
                 })
         }
     }
@@ -60,7 +77,7 @@ export default class Avatar {
     setAvatarInSession() {
         requester.get(kinvey.getUploadAvatarUrl() + `?query={"_acl":{"creator":"${sessionStorage.getItem('userId')}"}}`, auth.getHeaders())
             .then((data) => {
-                if (data[0]===undefined){
+                if (data === undefined) {
                     return
                 }
                 sessionStorage.setItem('avatar', data[0]._downloadURL)
