@@ -28,7 +28,6 @@ export default class Kinvey {
 		return `https://baas.kinvey.com/appdata/${this.getKinveyAppKey()}/${collection}`;
 	}
 
-
 	getUploadAvatarUrl() {
 		return `https://baas.kinvey.com/blob/${this.getKinveyAppKey()}`
 	}

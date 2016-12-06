@@ -30,15 +30,6 @@ export default class Post {
         }
     }
 
-    initializeRating(postId, rating) {
-        let ratingData = {
-            postId,
-            rating
-        };
-
-        requester.post(kinvey.getCollectionModuleUrl('rating'), auth.getHeaders(), ratingData)
-    }
-
     deletePost(postId, callback) {
         requester.delete(kinvey.getCollectionModuleUrl('posts') + '/' + postId, auth.getHeaders())
             .then(() => {
@@ -48,9 +39,6 @@ export default class Post {
             });
     }
 
-    deleteRating(id) {
-        requester.delete(kinvey.getCollectionModuleUrl('rating') + `?query={"postId":"${id}"}`, auth.getHeaders())
-    }
 
     editPost(postId, title, body, author, category, callback) {
         let postData = {
@@ -63,42 +51,12 @@ export default class Post {
             .then(callback(true));
     }
 
-    loadPostDetailsForEdit(postId, onPostSuccess){
-        let data = [requester.get(kinvey.getCollectionModuleUrl('posts') + '/' + postId, auth.getHeaders()),
-            requester.get(kinvey.getCollectionModuleUrl('categories'), auth.getHeaders())];
-
-        Promise.all(data)
-            .then(onPostSuccess)
-    }
-
-    loadPostDetails(postId, onPostSuccess) {
-        requester.get(kinvey.getCollectionModuleUrl('rating') + `?query={"postId":"${postId}"}`, auth.getHeaders())
-            .then(getPostSetRating);
-
-        function getPostSetRating(ratingData) {
-            let actions = [
-                requester.get(kinvey.getCollectionModuleUrl('posts') + '/' + postId, auth.getHeaders()),
-                requester.put(kinvey.getCollectionModuleUrl('rating') + `/${ratingData[0]._id}`, auth.getHeaders(),
-                    {
-                        postId: postId,
-                        rating: ++ratingData[0].rating
-                    }),
-            ]
-            Promise.all(actions)
-                .then((data) => {
-                    let postData = data[0];
-                    postData['rating'] = data[1].rating;
-                    postData['comments']=data[2];
-                    onPostSuccess(postData)
-                })
-        }
-    }
 
     getPostById(id, callback) {
     	if (callback === undefined)
-	    return requester.get(kinvey.getCollectionModuleUrl('posts') + '/' + id);
+	    return requester.get(kinvey.getCollectionModuleUrl('posts') + '/' + id, auth.getHeaders());
 
-	    requester.get(kinvey.getCollectionModuleUrl('posts') + '/' + id)
+	    requester.get(kinvey.getCollectionModuleUrl('posts') + '/' + id, auth.getHeaders())
 		    .then(post => callback(post));
 	}
 
