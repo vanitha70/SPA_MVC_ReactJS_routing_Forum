@@ -1,13 +1,17 @@
 import React, {Component} from 'react'
-import Post from '../../models/postModel'
 import {Link} from 'react-router'
 import {browserHistory} from 'react-router'
 import Comment from '../../models/commentModel'
-let postModule = new Post()
-let commentModule = new Comment()
+import Post from '../../models/postModel'
+import View from '../../models/viewsModel'
+
+let postModule = new Post();
+let commentModule = new Comment();
+let viewModule = new View();
+
 export default class DetailsPage extends Component {
     constructor(props) {
-        super(props)
+        super(props);
         this.state = {
             post: {
                 _acl: {
@@ -15,31 +19,34 @@ export default class DetailsPage extends Component {
                 }
             }
             , postComments: {}
-        }
+        };
         this.bindEventHandlers()
     }
 
 
     bindEventHandlers() {
-        this.onLoadSuccess = this.onLoadSuccess.bind(this)
-        this.onActionHandler = this.onActionHandler.bind(this)
-        this.onDeleteCommentActionHandler = this.onDeleteCommentActionHandler.bind(this)
-        this.commentActions = this.commentActions.bind(this)
-        this.onDeleteCommentResponse = this.onDeleteCommentResponse.bind(this)
-        this.onLoadCommentsSuccess = this.onLoadCommentsSuccess.bind(this)
+        this.onLoadSuccess = this.onLoadSuccess.bind(this);
+        this.onActionHandler = this.onActionHandler.bind(this);
+        this.onDeleteCommentActionHandler = this.onDeleteCommentActionHandler.bind(this);
+        this.commentActions = this.commentActions.bind(this);
+        this.onDeleteCommentResponse = this.onDeleteCommentResponse.bind(this);
     }
 
-    onLoadSuccess(response) {
-        this.setState({post: response})
+    onLoadSuccess([view, post, comments]) {
+    	viewModule.increaseViewCount(view[0]);
+	    post.rating = view[0].rating;
+        this.setState({post: post});
+	    this.setState({postComments: comments})
     }
 
-    onLoadCommentsSuccess(response) {
-        this.setState({postComments: response})
-    }
 
     componentDidMount() {
-        postModule.loadPostDetails(this.props.params.postId, this.onLoadSuccess)
-        commentModule.getPostComments(this.props.params.postId, this.onLoadCommentsSuccess)
+    	let requests = [
+    	    viewModule.getViewByPostId(this.props.params.postId),
+            postModule.getPostById(this.props.params.postId),
+            commentModule.getPostComments(this.props.params.postId)
+	    ];
+    	Promise.all(requests).then(this.onLoadSuccess);
     }
 
     showComments(comments) {

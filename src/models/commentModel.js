@@ -36,12 +36,14 @@ export default class Comment {
     }
 
     getPostComments(postId, callback) {
-        requester.get(kinvey.getCollectionModuleUrl('comments') + `?query={"postId":"${postId}"}`, auth.getHeaders())
-            .then(loadAllCommentsSuccess)
-        function loadAllCommentsSuccess(comments) {
-            observer.showSuccess('Comments loaded')
-            callback(comments)
-        }
+    	if (callback === undefined)
+    		return requester.get(kinvey.getCollectionModuleUrl('comments') + `?query={"postId":"${postId}"}`, auth.getHeaders())
+
+	    requester.get(kinvey.getCollectionModuleUrl('comments') + `?query={"postId":"${postId}"}`, auth.getHeaders())
+		    .then((comments) => {
+    		callback(comments);
+		    observer.showSuccess('Comments loaded');
+    	});
     }
 
     loadCommentDetails(commentId,onPostSuccess){
