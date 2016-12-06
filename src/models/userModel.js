@@ -79,10 +79,13 @@ export default class User {
 			.catch((err) => {callback(false)})
 	}
 
-	getUsers(callback) {
+	getUsers(callback, id) {
         requester.get(kinvey.getUserModuleUrl(), auth.getHeaders())
             .then((response) => {
-                callback(response)
+                requester.get(kinvey.getCollectionModuleUrl('bannedUsers'), auth.getHeaders())
+                    .then((res)=>{
+                        callback(response, res, id)
+                    })
             })
 	}
 
@@ -113,7 +116,21 @@ export default class User {
 			user:user.username
 		}
         requester.post(kinvey.getCollectionModuleUrl('bannedUsers'), auth.getHeaders(), data)
-			.then((res)=> (console.log(res)))
+			.then((res)=> {
+                callback('ban', user._id)
+            })
+    }
+
+    unBannUser(user, callback) {
+        let data = {
+            user:user.username
+        }
+        requester.get(kinvey.getCollectionModuleUrl('bannedUsers')+`?query={"user":"${user.username}"}`, auth.getHeaders())
+            .then((res) => {
+                requester.delete(kinvey.getCollectionModuleUrl('bannedUsers')+'/'+res[0]._id, auth.getHeaders())
+                    .then((resp)=> callback('unBan', user._id))
+
+            })
     }
 
 	//
