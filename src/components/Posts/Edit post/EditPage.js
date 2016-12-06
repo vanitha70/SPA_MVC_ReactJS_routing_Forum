@@ -1,9 +1,12 @@
 import React, {Component} from 'react';
 import EditForm from './EditForm';
 import Post from '../../../models/postModel';
+import Category from '../../../models/categoryModel';
 import observer from '../../../models/observer'
+import {browserHistory} from 'react-router';
 
-let post = new Post()
+let category = new Category();
+let post = new Post();
 
 export default class EditPage extends Component {
     constructor(props) {
@@ -14,7 +17,11 @@ export default class EditPage extends Component {
 
     componentDidMount() {
         // Populate form
-        post.loadPostDetailsForEdit(this.props.params.postId, this.onLoadSuccess);
+	    let requests = [
+	        post.getPostById(this.props.params.postId),
+	        category.getAllCategories()
+	    ];
+	    Promise.all(requests).then(this.onLoadSuccess)
     }
 
     bindEventHandlers() {
@@ -25,13 +32,13 @@ export default class EditPage extends Component {
         this.onLoadSuccess = this.onLoadSuccess.bind(this);
     }
 
-    onLoadSuccess(response) {
+    onLoadSuccess([post, categories]) {
         this.setState({
-            title: response[0].title ,
-            body: response[0].body ,
-            author: response[0].author ,
-            category: response[0].category,
-            categories: response[1],
+            title: post.title ,
+            body: post.body ,
+            author: post.author ,
+            category: post.category,
+            categories: categories,
             submitDisabled: false
         });
     }
@@ -63,9 +70,8 @@ export default class EditPage extends Component {
 
     onSubmitResponse(response) {
         if (response === true) {
-            // Navigate away from login page
-            this.context.router.push('/posts');
-            //browserHistory.push('/posts')
+            // Navigate away from edit page
+            browserHistory.push('/posts')
             observer.showSuccess('Post edited.')
         } else {
             // Something went wrong, let the user try again
@@ -90,7 +96,3 @@ export default class EditPage extends Component {
         );
     }
 }
-
-EditPage.contextTypes = {
-    router: React.PropTypes.object
-};

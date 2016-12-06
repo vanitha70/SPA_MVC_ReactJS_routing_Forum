@@ -96,9 +96,9 @@ export default class Post {
 
     getPostById(id, callback) {
     	if (callback === undefined)
-	    return requester.get(kinvey.getCollectionModuleUrl('posts') + '/' + id);
+	    return requester.get(kinvey.getCollectionModuleUrl('posts') + '/' + id, auth.getHeaders());
 
-	    requester.get(kinvey.getCollectionModuleUrl('posts') + '/' + id)
+	    requester.get(kinvey.getCollectionModuleUrl('posts') + '/' + id, auth.getHeaders())
 		    .then(post => callback(post));
 	}
 

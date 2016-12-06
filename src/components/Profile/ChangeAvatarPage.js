@@ -1,12 +1,12 @@
 import React, {Component} from 'react'
 import ChangeAvatarForm from './ChangeAvatarForm'
-import User from '../../models/userModel'
+// import User from '../../models/userModel'
 import Modal from 'react-bootstrap/lib/Modal'
 import Button from 'react-bootstrap/lib/Button'
 import {browserHistory} from 'react-router'
 import Avatar from '../../models/avatarModel'
 
-let user = new User();
+// let user = new User();
 let avatar = new Avatar();
 
 export default class ChangeAvatarPage extends Component {
