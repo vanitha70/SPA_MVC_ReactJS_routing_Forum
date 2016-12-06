@@ -27,7 +27,10 @@ export default class CategoriesWidget extends Component {
 	}
 
 	componentDidMount() {
-		category.getAllCategories(this.onCategoriesFetchSuccess)
+		setTimeout(()=> {
+			category.getAllCategories(this.onCategoriesFetchSuccess);
+		}, 500);
+		console.log()
 	}
 
 	onCategoriesFetchSuccess(categories) {
@@ -55,7 +58,6 @@ export default class CategoriesWidget extends Component {
 			rightCatSet: categories,
 			leftCatSet: leftCatSet
 		});
-		console.log(leftCatSet);
 	}
 
 	render() {

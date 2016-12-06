@@ -15,8 +15,11 @@ export default class AllPostsPage extends Component {
         this.state = {
             posts: [],
             pagePosts: [],
-            category: this.props.location.state !== undefined
-            ? this.props.location.state.selectedCategory.fullName
+            category: this.props.location !== undefined
+            ? this.props.location.state !== undefined
+	            ?
+	            this.props.location.state.selectedCategory.fullName
+	            : 'All'
 	            : 'All',
             categories: [],
             total:       0,
@@ -68,6 +71,7 @@ export default class AllPostsPage extends Component {
     }
 
     componentDidMount() {
+    	console.log()
     	let requests = [
             postModule.getAllPosts(),
 	        categoryModule.getAllCategories(),
