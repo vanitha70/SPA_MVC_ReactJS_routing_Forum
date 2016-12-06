@@ -85,13 +85,12 @@ export default class AllPostsPage extends Component {
     }
 
     onLoadSuccess([posts, categories, views]) {
-	    let postInfo = posts.sort((a, b) => a._id > b._id);
-	    let viewsInfo = views.sort((a, b) => a.postId > b.postId);
-	    for (let i = 0; i < postInfo.length; i++) {
-		    postInfo[i]['rating'] = viewsInfo[i].rating
-	    }
-	    postInfo.sort((a,b) => b.rating - a.rating);
-        this.setState({
+	    views = views.sort((a, b) => a.postId > b.postId);
+	    for (let post of posts)
+		    post.rating = views.filter(view => view.postId === post._id)[0].rating;
+	    posts.sort((a,b) => b.rating - a.rating);
+
+	    this.setState({
             posts: posts.sort((a, b) => {
                 return b._kmd.lmt.localeCompare(a._kmd.lmt)
             }),
