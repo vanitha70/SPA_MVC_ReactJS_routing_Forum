@@ -30,7 +30,6 @@ export default class CategoriesWidget extends Component {
 		setTimeout(()=> {
 			category.getAllCategories(this.onCategoriesFetchSuccess);
 		}, 500);
-		console.log()
 	}
 
 	onCategoriesFetchSuccess(categories) {
@@ -69,8 +68,10 @@ export default class CategoriesWidget extends Component {
 						<ul className="list-group">
 							{
 								this.state.leftCatSet.map((cat, index)=>
-									<Link key={index} to={{pathname: "/posts", state: { selectedCategory: cat } }}>
-										<li className="list-group-item" key={cat._id}>
+									<Link style={{ textDecoration: "none" }}
+									      key={index}
+									      to={{pathname: "/posts", state: { selectedCategory: cat } }}>
+										<li className="list-group-item btn-custom" key={cat._id}>
 											{cat.name}
 										</li>
 									</Link>
@@ -82,8 +83,10 @@ export default class CategoriesWidget extends Component {
 						<ul className="list-group">
 							{
 								this.state.rightCatSet.map((cat, index)=>
-									<Link key={index} to={{pathname: "/posts", state: { selectedCategory: cat } }}>
-										<li className="list-group-item" key={cat._id}>
+									<Link style={{ textDecoration: "none" }}
+									      key={index}
+									      to={{pathname: "/posts", state: { selectedCategory: cat } }}>
+										<li className="list-group-item btn-custom" key={cat._id}>
 											{cat.name}
 										</li>
 									</Link>

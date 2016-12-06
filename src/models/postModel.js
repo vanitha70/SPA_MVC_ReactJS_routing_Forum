@@ -89,19 +89,23 @@ export default class Post {
      * // To sort `sort=age` (ascending) `sort={"age": -1}` (descending) \\
      * // To sort by multiple props `sort={"firstName": 1, "lastName": -1}` \\
      * // To take only desired fields `fields=age,lastName` \\
-     * @param {function} callback - returns Object with server data
+     * @param {function} (callback) - returns Object with server data
      */
 
     query(filter, modifier, callback) {
-        let queryString = `?query={${filter}}`;
+        let queryString = `?query=${filter}`;
         if (modifier !== null)
             queryString += `&${modifier}`;
         let url = kinvey.getCollectionModuleUrl('posts') + queryString;
 
+        if (callback === undefined)
+			return requester.get(url, auth.getHeaders());
+
         requester.get(url, auth.getHeaders())
-            .then((response) => {
-                callback(response);
-            });
+		    .then((response) =>
+		    {
+		    	callback(response);
+		    });
     }
 
     getPostsByUserId(callback) {
