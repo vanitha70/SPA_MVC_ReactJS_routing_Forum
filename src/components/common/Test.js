@@ -1,5 +1,6 @@
 import React, {Component} from 'react'
 import Carousel from 'react-bootstrap/lib/Carousel';
+import './Test.css'
 // import $ from 'jquery';
 
 export default class Test extends Component {
@@ -49,19 +50,19 @@ export default class Test extends Component {
 		return (
 			<Carousel id="headCarousel" activeIndex={this.state.index} direction={this.state.direction} onSelect={this.handleSelect}>
 				<Carousel.Item>
-					<img width={700} height={450} alt="900x500" src={this.pictures[0]}/>
+					<img className="img-responsive img-thumbnail" alt="900x500" src={this.pictures[0]}/>
 					<Carousel.Caption>
 						<h3>Welcome to SoftUni Forum</h3>
 					</Carousel.Caption>
 				</Carousel.Item>
 				<Carousel.Item>
-					<img width={700} height={450} alt="900x500" src={this.pictures[1]}/>
+					<img className="img-responsive img-thumbnail" alt="900x500" src={this.pictures[1]}/>
 					<Carousel.Caption>
 						<h3>Welcome to SoftUni Forum</h3>
 					</Carousel.Caption>
 				</Carousel.Item>
 				<Carousel.Item>
-					<img width={700} height={450} alt="900x500" src={this.pictures[2]}/>
+					<img className="img-responsive img-thumbnail" alt="900x500" src={this.pictures[2]}/>
 					<Carousel.Caption>
 						<h3>Welcome to SoftUni Forum</h3>
 					</Carousel.Caption>
