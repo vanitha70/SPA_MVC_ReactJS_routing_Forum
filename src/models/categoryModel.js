@@ -26,7 +26,7 @@ export default class Category {
             for (let i = 0; i < categories.length; i++) {
                 if(categories[i].name ===  name){
                 	found = true
-                    callback(true)
+                    callback('duplicate')
 				}
             }
             if (!found) {
@@ -34,8 +34,21 @@ export default class Category {
                     name: name
                 }
                 requester.post(kinvey.getCollectionModuleUrl('categories'), auth.getHeaders(), category)
-                    .then(() => callback())
+                    .then(() => callback('create'))
             }
         }
+    }
+
+    deleteCategory(id, callback) {
+		requester.delete(kinvey.getCollectionModuleUrl('categories')+'/'+id, auth.getHeaders())
+			.then(() => callback('delete'))
+	}
+
+    editCategory(id,newName, callback) {
+		let newCategory = {
+			name: newName
+		}
+        requester.put(kinvey.getCollectionModuleUrl('categories')+'/'+id, auth.getHeaders(),newCategory)
+            .then(() => callback('edit'))
     }
 }
