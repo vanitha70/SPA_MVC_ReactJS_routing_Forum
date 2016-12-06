@@ -14,6 +14,10 @@ export default class CreatePostPage extends Component {
     }
 
     componentDidMount() {
+        if(sessionStorage.getItem('username') === 'guest' || (!sessionStorage.getItem('username'))){
+            observer.showError("Please register or login first!")
+            this.context.router.push('/')
+        }
         categoryModule.getAllCategories(this.loadCategories)
     }
 
@@ -65,8 +69,9 @@ export default class CreatePostPage extends Component {
             // Navigate away from createPost page
             this.context.router.push('/posts')
         } else {
+            observer.showError("Please register or login first!")
             // Something went wrong, let the user try again
-            this.setState({ submitDisabled: true })
+            this.setState({ submitDisabled: false })
         }
     }
 

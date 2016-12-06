@@ -88,6 +88,19 @@ export default class User {
 			.then(user => callback(user));
 	}
 
+	loginDefaultUser(){
+        let userData = {
+            username: 'guest',
+            password: 'guest'
+        };
+        requester.post(kinvey.getUserModuleUrl() + '/login', auth.getHeaders(), userData)
+            .then((response) => {
+                this.saveSession(response);
+                observer.onSessionUpdate();
+            })
+            .catch((err)=> console.log(err))
+	}
+
 	//
 	// Makes sessionStorage items for the authtoken, userId, and username
 	//
@@ -105,6 +118,4 @@ export default class User {
 
 		observer.onSessionUpdate()
 	}
-
-
 }

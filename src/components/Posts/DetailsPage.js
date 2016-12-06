@@ -102,7 +102,7 @@ export default class DetailsPage extends Component {
     action(post, userId) {
         let pathEdit = '/posts/edit/' + post._id
         let pathAddComment = '/comments/' + post._id
-        if (post._acl.creator === userId) {
+        if (post._acl.creator === userId || sessionStorage.getItem('Admin') === 'true') {
             return (
                 <div>
                     <Link to={pathAddComment} className="btn btn-success">Add Comment</Link>

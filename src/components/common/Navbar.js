@@ -10,7 +10,7 @@ export default class NavigationBar extends Component {
 	render() {
 		let navbar = {};
 		let navbarRight = [];
-        if (!this.props.loggedIn) {
+        if (!this.props.loggedIn || sessionStorage.getItem('username') === 'guest') {
 			navbar = (
 				<Nav>
 					<LinkContainer to="/account/login" key="login">
@@ -18,6 +18,9 @@ export default class NavigationBar extends Component {
 					</LinkContainer>
 					<LinkContainer to="/account/register" key="register">
 						<NavItem href="account/register">Register</NavItem>
+					</LinkContainer>
+					<LinkContainer to="/posts" key="posts">
+						<NavItem href="posts">All posts</NavItem>
 					</LinkContainer>
 					<LinkContainer to="/about" key="about" >
 						<NavItem href="about">About</NavItem>

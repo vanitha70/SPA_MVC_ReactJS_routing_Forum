@@ -21,7 +21,8 @@ export default class Post {
             category,
         };
         requester.post(kinvey.getCollectionModuleUrl('posts'), auth.getHeaders(), postData)
-            .then(createPostSuccess);
+            .then(createPostSuccess)
+            .catch((err)=>callback(false))
 
         function createPostSuccess(postInfo) {
             views.initializeViews(postInfo._id, 0);

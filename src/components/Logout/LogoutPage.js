@@ -1,5 +1,7 @@
 import React, {Component} from 'react'
 import User from '../../models/userModel'
+import userModel from '../../models/userModel'
+let session = new userModel()
 let user = new User();
 
 export default class LogoutPage extends Component {
@@ -16,6 +18,7 @@ export default class LogoutPage extends Component {
         if (response === true) {
             // Navigate away from login page
             this.context.router.push('/')
+            session.loginDefaultUser()
         } else {
             // Something went wrong, let the user know
         }

@@ -11,10 +11,18 @@ export default class AboutPage extends Component {
                 <div className="container-fluid">
                     <div className="col-md-6 pane panel-default">
                         <div className="panel-heading">
-                            <h3>Our Forum</h3>
+                            <h3>Contacts</h3>
                         </div>
                         <div className="panel-body">
-	                        We are the best
+                            <p>Sofia, Izgrev, Tyntiava str. 15-17, floor 1</p>
+                            Open:
+                            <p>10:00 - 20:00 (Monday - Friday)</p>
+                            Phone:
+                            <p>+359 899 55 55 92</p>
+                            Post code:
+                            <p>1113</p>
+                            Email:
+                            <p>info@softuni.bg</p>
                         </div>
                     </div>
                     <side className="col-md-6 panel panel-default">

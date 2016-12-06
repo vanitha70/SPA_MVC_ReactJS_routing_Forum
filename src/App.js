@@ -4,6 +4,8 @@ import NavigationBar from './components/common/Navbar'
 import Infobox from  './components/common/Infobox'
 import Footer from './components/common/Footer'
 import observer from './models/observer'
+import userModel from './models/userModel'
+let session = new userModel()
 import './App.css';
 
 class App extends Component {
@@ -15,6 +17,7 @@ class App extends Component {
 
     componentDidMount() {
         this.onSessionUpdate()
+        session.loginDefaultUser()
     }
 
     onSessionUpdate() {
