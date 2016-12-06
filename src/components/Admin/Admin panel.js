@@ -4,6 +4,7 @@ import userModel from '../../models/userModel'
 import observer from '../../models/observer'
 import {browserHistory} from 'react-router'
 import AllPosts from '../Posts/AllPostsPage'
+import Categories from './Categories'
 let user = new userModel()
 
 export default class AdminPanel extends Component {
@@ -13,11 +14,13 @@ export default class AdminPanel extends Component {
         this.state = {
             response:false,
             publications:false,
-            users: false
+            users: false,
+            categories: false
         }
         this.allowAccess = this.allowAccess.bind(this)
         this.loadPublications = this.loadPublications.bind(this)
         this.loadUsers = this.loadUsers.bind(this)
+        this.loadCategories = this.loadCategories.bind(this)
     }
 
     componentWillMount(){
@@ -36,15 +39,25 @@ export default class AdminPanel extends Component {
 
     loadPublications(){
         this.setState ({
-            publications: true
+            publications: true,
+            categories:false,
+            users: false
         })
     }
 
     loadUsers(){
-
         this.setState ({
             publications: false,
+            categories: false,
             users: true
+        })
+    }
+
+    loadCategories(){
+        this.setState ({
+            publications: false,
+            users: false,
+            categories: true
         })
     }
 
@@ -55,28 +68,38 @@ export default class AdminPanel extends Component {
                 <div>
                     <button className="btn btn-success" onClick={this.loadPublications}>Manage Publications</button>
                     <button className="btn btn-success" onClick={this.loadUsers}>Manage Users</button>
+                    <button className="btn btn-success" onClick={this.loadCategories}>Manage Categories</button>
                 </div>
             </div>
         )
 
-        if(this.state.response && this.state.publications === false && this.state.users === false){
+        if(this.state.response && this.state.publications === false && this.state.users === false && this.state.categories === false){
             return basis
         } else if (this.state.response && this.state.publications){
             return (
                 <div>
                     {basis}
                     <br/>
-                    <div>
+                    <div style={{marginTop:100}}>
                         <AllPosts/>
                     </div>
                 </div>
             );
-        } else if (this.state.response && this.state.publications === false  && this.state.users === true){
+        } else if (this.state.response && this.state.users){
             return (
                 <div>
                     {basis}
-                    <div>
+                    <div style={{paddingTop:100}}>
                         <Users/>
+                    </div>
+                </div>
+            );
+        } else if (this.state.response && this.state.categories){
+            return (
+                <div>
+                    {basis}
+                    <div style={{paddingTop:100}}>
+                        <Categories/>
                     </div>
                 </div>
             );

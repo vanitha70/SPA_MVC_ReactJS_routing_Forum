@@ -30,7 +30,7 @@ export default class Users extends Component {
         this.setState({
             current: newPage,
             total: Math.ceil(this.state.users.length / 10),
-            pagePosts: this.state.users.slice(newPage * this.state.visiblePage , (newPage * this.state.visiblePage)+10)
+            pageUsers: this.state.users.slice(newPage * this.state.visiblePage , (newPage * this.state.visiblePage)+10)
         })
     }
 
@@ -60,10 +60,7 @@ export default class Users extends Component {
             <tr key={user._id}>
                 <td>{user.username}</td>
                 <td>{new Date(Date.parse(user._kmd.lmt)).toLocaleString()}</td>
-                <td>0</td>
-                <td>0</td>
                 <td>{user.Admin.toString()}</td>
-                <td>Actions</td>
             </tr>
         );
 
@@ -75,10 +72,7 @@ export default class Users extends Component {
                     <tr>
                         <th>User name</th>
                         <th>Date of registration </th>
-                        <th>Publications</th>
-                        <th>Comments</th>
                         <th>Admin</th>
-                        <th>Actions</th>
                     </tr>
                     </thead>
                     <tbody>
