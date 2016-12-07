@@ -18,7 +18,9 @@ export default class SymbolsLeft extends Component {
 			symbolsLeft: 0,
 			length: 0,
 			klass: '',
-			fieldOnFocus: null
+			fieldOnFocus: null,
+			color: "inherit",
+			boldness: "inherit"
 		}
 	}
 	bindToClass() {
@@ -27,8 +29,10 @@ export default class SymbolsLeft extends Component {
 
 	}
 	componentDidUpdate() {
+
 		if (this.state.length === this.props.input.length)
 			return false;
+
 		let value = this.props.maxSymbols - this.props.input.length;
 
 		this.setState({
@@ -36,8 +40,20 @@ export default class SymbolsLeft extends Component {
 			length: this.props.input.length
 		});
 
-		if (this.props.fieldOnFocus !== undefined)
-			this.setState( { fieldOnFocus: this.props.fieldOnFocus } )
+		this.setState( { fieldOnFocus: this.props.fieldOnFocus } );
+
+		if (this.state.symbolsLeft < 22)
+			this.setState( { color: "red" } );
+
+		if (this.state.symbolsLeft >= 22)
+			this.setState( { color: "inherit" } );
+
+		if (this.state.symbolsLeft === 1)
+			this.setState({boldness: "bold"});
+		else
+			this.setState({boldness: "inherit"});
+
+
 	}
 
 	componentDidMount() {
@@ -49,13 +65,20 @@ export default class SymbolsLeft extends Component {
 			this.setState( {klass: this.props.klass } );
 		if (this.props.fieldOnFocus !== undefined)
 			this.setState( { fieldOnFocus: this.props.fieldOnFocus } )
-
 	}
 
 	render() {
 		let toggle = this.props.fieldOnFocus ? "block" : "none";
+
 		return (
-			<div className={this.state.klass} style={{ display: toggle}}>
+			<div className={this.state.klass}
+			     style={
+			     	{
+			     		display: toggle,
+				        color: this.state.color,
+				        fontWeight: this.state.boldness
+			        }
+			     }>
 				<p>{this.state.symbolsLeft}</p>
 			</div>
 		);
