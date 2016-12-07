@@ -2,6 +2,7 @@ import React, {Component} from 'react'
 import CreateForm from './CreateCommentForm'
 import Comment from '../../../models/commentModel'
 import observer from '../../../models/observer'
+import {browserHistory} from 'react-router';
 let comment = new Comment();
 
 export default class CreateCommentPage extends Component {
@@ -9,6 +10,14 @@ export default class CreateCommentPage extends Component {
         super(props)
         this.state = {body: '', submitDisabled: false}
         this.bindEventHandlers()
+    }
+
+    componentDidMount() {
+        // Populate form
+        if(sessionStorage.getItem('username') === 'guest'){
+            observer.showError('You are currently not logged in!')
+            browserHistory.push('/')
+        }
     }
 
     bindEventHandlers() {

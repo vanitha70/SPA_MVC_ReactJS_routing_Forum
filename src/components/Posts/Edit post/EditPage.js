@@ -17,6 +17,10 @@ export default class EditPage extends Component {
 
     componentDidMount() {
         // Populate form
+        if(sessionStorage.getItem('username') === 'guest'){
+            observer.showError('You are currently not logged in!')
+            browserHistory.push('/')
+        }
 	    let requests = [
 	        post.getPostById(this.props.params.postId),
 	        category.getAllCategories()
@@ -33,14 +37,16 @@ export default class EditPage extends Component {
     }
 
     onLoadSuccess([post, categories]) {
-        this.setState({
-            title: post.title ,
-            body: post.body ,
-            author: post.author ,
-            category: post.category,
-            categories: categories,
-            submitDisabled: false
-        });
+        if(sessionStorage.getItem('username') !== 'guest') {
+            this.setState({
+                title: post.title,
+                body: post.body,
+                author: post.author,
+                category: post.category,
+                categories: categories,
+                submitDisabled: false
+            });
+        }
     }
 
     onChangeHandler(event) {

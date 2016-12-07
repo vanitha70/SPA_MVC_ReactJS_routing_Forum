@@ -13,6 +13,7 @@ class App extends Component {
         super(props);
         this.state = { loggedIn: false, username: '' };
         observer.onSessionUpdate = this.onSessionUpdate.bind(this)
+        observer.componentDidMount = this.componentDidMount.bind(this)
     }
 
     componentDidMount() {

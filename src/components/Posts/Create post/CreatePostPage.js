@@ -22,9 +22,11 @@ export default class CreatePostPage extends Component {
     }
 
     loadCategories(data){
-        this.setState({
-            categories: data
-        })
+        if(sessionStorage.getItem('username')!== 'guest') {
+            this.setState({
+                categories: data
+            })
+        }
     }
 
     bindEventHandlers() {
