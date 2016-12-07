@@ -37,7 +37,7 @@ export default class Profile extends Component {
 
     componentDidMount() {
         if(sessionStorage.getItem('username') === 'guest'){
-            observer.showError('You are currently not logged in')
+            observer.showError('You are currently not logged in!')
             browserHistory.push('/')
         }
 	    postModule.getPostsByUserId(this.onLoadSuccess);
