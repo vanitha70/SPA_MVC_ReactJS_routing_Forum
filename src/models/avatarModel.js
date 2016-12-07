@@ -77,7 +77,7 @@ export default class Avatar {
     setAvatarInSession() {
         requester.get(kinvey.getUploadAvatarUrl() + `?query={"_acl":{"creator":"${sessionStorage.getItem('userId')}"}}`, auth.getHeaders())
             .then((data) => {
-                if (data === undefined) {
+                if (data === undefined || data[0] === undefined) {
                     return
                 }
                 sessionStorage.setItem('avatar', data[0]._downloadURL)

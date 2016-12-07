@@ -122,9 +122,6 @@ export default class User {
     }
 
     unBannUser(user, callback) {
-        let data = {
-            user:user.username
-        }
         requester.get(kinvey.getCollectionModuleUrl('bannedUsers')+`?query={"user":"${user.username}"}`, auth.getHeaders())
             .then((res) => {
                 requester.delete(kinvey.getCollectionModuleUrl('bannedUsers')+'/'+res[0]._id, auth.getHeaders())
