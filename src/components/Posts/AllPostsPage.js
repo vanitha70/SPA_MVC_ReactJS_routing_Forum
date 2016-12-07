@@ -88,13 +88,6 @@ export default class AllPostsPage extends Component {
 	    for (let post of posts)
 		    post.rating = views.filter(view => view.postId === post._id)[0].rating;
 	    posts.sort((a,b) => {
-	    	// sort by time of posting (descending)
-		    // then by view count
-		    if (b.rating > a.rating)
-		    	return 1;
-		    else if (b.rating < a.rating) {
-		    	return -1;
-		    }
 		    if (b._kmd.lmt.localeCompare(a._kmd.lmt) > 0)
 		    	return 1;
 		    else if (b._kmd.lmt.localeCompare(a._kmd.lmt) < 0)
