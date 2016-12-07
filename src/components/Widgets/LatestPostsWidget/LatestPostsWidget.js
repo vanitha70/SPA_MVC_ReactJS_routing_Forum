@@ -57,8 +57,7 @@ console.log()
 				// takes the time
 				for (let prop in post._kmd)
 					if (prop.localeCompare('ect'))
-						timestamp = new Date(post._kmd[prop]);
-				timestamp = utils.ConvertTime(timestamp);
+						timestamp = utils.ConvertTime(post._kmd[prop]);
 				let i = 0;
 				for (; i < rating; i++)
 					ratingRender.push(<span key={i} className="glyphicon glyphicon-star"></span>)
@@ -73,10 +72,10 @@ console.log()
 									<div className="caption post-body">
 										<div className="text-center">
 											<h3>
-												{post.title}
+												{utils.showLess(post.title, 30)}
 											</h3>
 										</div>
-										<div>{post.body.substr(0, 1000)}</div>
+										<div>{utils.showLess(post.body, 50)}</div>
 									</div>
 								<div className="post-views">
 									<p className="pull-right views">{post.rating} views</p>
