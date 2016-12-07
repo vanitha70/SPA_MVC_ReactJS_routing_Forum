@@ -1,5 +1,5 @@
 import React, {Component} from 'react'
-import Carousel from './Test';
+import Carousel from './Carousel';
 
 export default class Header extends Component {
 	render() {

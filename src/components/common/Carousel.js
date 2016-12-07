@@ -1,6 +1,6 @@
 import React, {Component} from 'react'
 import Carousel from 'react-bootstrap/lib/Carousel';
-import './Test.css'
+import './Carousel.css'
 // import $ from 'jquery';
 
 export default class Test extends Component {
