@@ -14,72 +14,56 @@ import React, {Component} from 'react'
 export default class SymbolsLeft extends Component {
 	constructor(props) {
 		super(props);
-		this.state = {
-			symbolsLeft: 0,
-			length: 0,
-			klass: '',
-			fieldOnFocus: null,
-			color: "inherit",
-			boldness: "inherit"
-		}
+			this.symbolsLeft = 0;
+			this.length = 0;
+			this.boldness = "inherit";
+			this.klass = '';
+			this.fieldOnFocus = null;
+			this.color = "inherit"
 	}
 	bindToClass() {
 		this.componentDidMount = this.componentDidMount.bind(this);
-		this.componentDidUpdate = this.componentDidUpdate.bind(this);
-
-	}
-	componentDidUpdate() {
-
-		if (this.state.length === this.props.input.length)
-			return false;
-
-		let value = this.props.maxSymbols - this.props.input.length;
-
-		this.setState({
-			symbolsLeft: value < 0 ? 0 : value,
-			length: this.props.input.length
-		});
-
-		this.setState( { fieldOnFocus: this.props.fieldOnFocus } );
-
-		if (this.state.symbolsLeft < 22)
-			this.setState( { color: "red" } );
-
-		if (this.state.symbolsLeft >= 22)
-			this.setState( { color: "inherit" } );
-
-		if (this.state.symbolsLeft === 1)
-			this.setState({boldness: "bold"});
-		else
-			this.setState({boldness: "inherit"});
-
-
 	}
 
 	componentDidMount() {
-		this.setState ({
-			symbolsLeft: this.props.maxSymbols - this.props.input.length,
-			length: this.props.input.length
-		});
+		this.symbolsLeft = this.props.maxSymbols - this.props.input.length;
+		this.length = this.props.input.length;
+
 		if (this.props.klass !== undefined)
-			this.setState( {klass: this.props.klass } );
+			this.klass = this.props.klass;
 		if (this.props.fieldOnFocus !== undefined)
-			this.setState( { fieldOnFocus: this.props.fieldOnFocus } )
+			this.fieldOnFocus = this.props.fieldOnFocus;
 	}
 
 	render() {
 		let toggle = this.props.fieldOnFocus ? "block" : "none";
+		let value = this.props.maxSymbols - this.props.input.length;
+
+		this.symbolsLeft = value < 0 ? 0 : value;
+		this.length = this.props.input.length;
+		this.fieldOnFocus = this.props.fieldOnFocus;
+
+		if (this.symbolsLeft <= 20)
+			this.color = "red";
+
+		if (this.symbolsLeft > 20)
+			this.color = "inherit";
+
+		if (this.symbolsLeft === 0)
+			this.boldness = "bold";
+		else
+			this.boldness = "inherit";
 
 		return (
-			<div className={this.state.klass}
+			<div className={this.klass}
 			     style={
 			     	{
 			     		display: toggle,
-				        color: this.state.color,
-				        fontWeight: this.state.boldness
+				        color: this.color,
+				        fontWeight: this.boldness
 			        }
 			     }>
-				<p>{this.state.symbolsLeft}</p>
+				<p>{this.symbolsLeft}</p>
 			</div>
 		);
 	}
