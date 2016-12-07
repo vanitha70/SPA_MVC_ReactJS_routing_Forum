@@ -90,7 +90,17 @@ export default class AllPostsPage extends Component {
 	    posts.sort((a,b) => {
 	    	// sort by time of posting (descending)
 		    // then by view count
-	    	return  (b.rating - a.rating) + b._kmd.lmt.localeCompare(a._kmd.lmt);
+		    if (b.rating > a.rating)
+		    	return 1;
+		    else if (b.rating < a.rating) {
+		    	return -1;
+		    }
+		    if (b._kmd.lmt.localeCompare(a._kmd.lmt) > 0)
+		    	return 1;
+		    else if (b._kmd.lmt.localeCompare(a._kmd.lmt) < 0)
+		    	return -1;
+		    else
+		    	return 0;
 	    });
 
 	    this.setState({
