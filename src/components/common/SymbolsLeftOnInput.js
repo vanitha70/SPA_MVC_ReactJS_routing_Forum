@@ -17,11 +17,7 @@ export default class SymbolsLeft extends Component {
 			this.symbolsLeft = 0;
 			this.boldness = "inherit";
 			this.klass = '';
-			this.fieldOnFocus = null;
-			this.color = "inherit"
-	}
-	bindToClass() {
-		this.componentDidMount = this.componentDidMount.bind(this);
+			this.kolor = "inherit"
 	}
 
 	componentDidMount() {
@@ -29,21 +25,24 @@ export default class SymbolsLeft extends Component {
 
 		if (this.props.klass !== undefined)
 			this.klass = this.props.klass;
-		if (this.props.fieldOnFocus !== undefined)
-			this.fieldOnFocus = this.props.fieldOnFocus;
+
+		if (this.props.kolor !== undefined)
+			this.kolor = this.props.kolor;
 	}
 
 	render() {
 		let toggle = this.props.fieldOnFocus ? "block" : "none";
 		let value = this.props.maxSymbols - this.props.input.length;
+		if (toggle === undefined)
+			toggle = "block";
 
 		this.symbolsLeft = value < 0 ? 0 : value;
 
 		if (this.symbolsLeft <= 20)
-			this.color = "red";
+			this.kolor = "red";
 
 		if (this.symbolsLeft > 20)
-			this.color = "inherit";
+			this.kolor = "inherit";
 
 		if (this.symbolsLeft === 0)
 			this.boldness = "bold";
@@ -55,7 +54,7 @@ export default class SymbolsLeft extends Component {
 			     style={
 			     	{
 			     		display: toggle,
-				        color: this.color,
+				        color: this.kolor,
 				        fontWeight: this.boldness
 			        }
 			     }>
