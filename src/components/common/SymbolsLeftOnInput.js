@@ -15,7 +15,6 @@ export default class SymbolsLeft extends Component {
 	constructor(props) {
 		super(props);
 			this.symbolsLeft = 0;
-			this.length = 0;
 			this.boldness = "inherit";
 			this.klass = '';
 			this.fieldOnFocus = null;
@@ -27,7 +26,6 @@ export default class SymbolsLeft extends Component {
 
 	componentDidMount() {
 		this.symbolsLeft = this.props.maxSymbols - this.props.input.length;
-		this.length = this.props.input.length;
 
 		if (this.props.klass !== undefined)
 			this.klass = this.props.klass;
@@ -40,8 +38,6 @@ export default class SymbolsLeft extends Component {
 		let value = this.props.maxSymbols - this.props.input.length;
 
 		this.symbolsLeft = value < 0 ? 0 : value;
-		this.length = this.props.input.length;
-		this.fieldOnFocus = this.props.fieldOnFocus;
 
 		if (this.symbolsLeft <= 20)
 			this.color = "red";
