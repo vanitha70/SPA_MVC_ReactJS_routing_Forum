@@ -3,6 +3,7 @@ import Post from '../../models/postModel'
 import {Link} from 'react-router'
 import observer from '../../models/observer'
 import Utilities from '../../utilities/utilities'
+import {browserHistory} from 'react-router'
 let postModule = new Post();
 let utilities = new Utilities()
 
@@ -35,13 +36,19 @@ export default class Profile extends Component {
     }
 
     componentDidMount() {
+        if(sessionStorage.getItem('username') === 'guest'){
+            observer.showError('You are currently not logged in')
+            browserHistory.push('/')
+        }
 	    postModule.getPostsByUserId(this.onLoadSuccess);
 	    // the above can be achieved with the one below
 	    // postModule.query(`"_acl":{"creator": "${sessionStorage.getItem('userId')}"}`, null, this.onLoadSuccess);
     }
 
     onLoadSuccess(response) {
-        this.setState({ posts: response })
+        if(sessionStorage.getItem('username') !== 'guest') {
+            this.setState({posts: response})
+        }
     }
 
     action(post,userId){

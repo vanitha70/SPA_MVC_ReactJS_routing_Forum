@@ -43,7 +43,6 @@ console.log()
 	}
 
 	render() {
-		let that = this;
 		// prep posts
 		let postsForRender = Array.from(this.state.latestPosts)
 			.map(function (post) {
