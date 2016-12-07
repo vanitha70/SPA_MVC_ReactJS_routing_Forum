@@ -3,8 +3,8 @@
     white-space: nowrap;
     color: #3366BB;
     text-decoration: none;
-    overflow: hidden;
-    text-overflow: clip;
+    overflow: hidden !important;
+    text-overflow: clip !important;
 }
 
 .btn-custom {
@@ -40,12 +40,16 @@
     text-decoration: none;
     transition: .2s ease;
 }
-
+.btn-nav:hover {
+    border-color: white !important;
+}
 .btn-nav > a:hover, .navbar-header a:first-child:hover {
-    background-color: #73B1E1 !important;
-    border-color: #3366BB;
+    margin-top: 10px;
+    font-weight: bolder;
+    background-color: #66aade !important;
+    border-color: white !important;
     color: white !important;
-    transition: .5s ease;
+    transition: .2s ease;
 }
 
 .table td:hover {
