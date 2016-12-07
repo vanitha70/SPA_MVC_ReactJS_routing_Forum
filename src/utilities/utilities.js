@@ -24,4 +24,18 @@ export default class Utilities {
             result += ` ${array[i]}`
         }
     }
+
+	/*
+		Converts kinvey time to bulgarian time eg.
+		(day/month/year hours:minutes)
+		13/12/2016 14:34
+    */
+	ConvertTime(t){
+		// Get your time (using a hard-coded year for parsing purposes)
+		let time = new Date(t);
+
+		// Output your formatted version (using your DateTime)
+		return `${time.getDay()+4}/${time.getMonth()+1}/${time.getFullYear()} ` +
+			`${time.getHours()}:${('0' + time.getMinutes()).slice(-2)}`;
+	}
 }
