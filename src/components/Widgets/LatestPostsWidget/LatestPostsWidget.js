@@ -29,7 +29,7 @@ console.log()
 
 	componentDidMount() {
 		let requests = [
-			postModule.query('{}', `sort={"_kmd":-1}`),
+			postModule.query('{}', `sort={"_kmd":-1}&limit=12`),
 			viewModule.getAllViews()
 		];
 		Promise.all(requests).then(this.onFetchDataSuccess);
