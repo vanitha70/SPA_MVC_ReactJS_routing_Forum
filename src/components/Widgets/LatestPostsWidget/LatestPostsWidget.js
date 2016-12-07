@@ -2,6 +2,8 @@ import React, {Component} from 'react'
 import Post from '../../../models/postModel';
 import View from '../../../models/viewsModel';
 import {Link} from 'react-router';
+import Utilities from '../../../utilities/utilities';
+let utils = new Utilities();
 let postModule = new Post();
 let viewModule = new View();
 
@@ -27,11 +29,12 @@ console.log()
 
 	componentDidMount() {
 		let requests = [
-			postModule.query('{}', `sort={"_kmd":{"etc": ${1}}&limit=${12}`),
+			postModule.query('{}', `sort={"_kmd":-1}`),
 			viewModule.getAllViews()
 		];
 		Promise.all(requests).then(this.onFetchDataSuccess);
 	}
+
 
 	onFetchDataSuccess([posts, views]) {
 		for (let post of posts)
@@ -40,6 +43,7 @@ console.log()
 	}
 
 	render() {
+		let that = this;
 		// prep posts
 		let postsForRender = Array.from(this.state.latestPosts)
 			.map(function (post) {
@@ -53,8 +57,8 @@ console.log()
 				// takes the time
 				for (let prop in post._kmd)
 					if (prop.localeCompare('ect'))
-						timestamp = post._kmd[prop].substr(0, 16).replace('T', ' ');
-
+						timestamp = new Date(post._kmd[prop]);
+				timestamp = utils.ConvertTime(timestamp);
 				let i = 0;
 				for (; i < rating; i++)
 					ratingRender.push(<span key={i} className="glyphicon glyphicon-star"></span>)
