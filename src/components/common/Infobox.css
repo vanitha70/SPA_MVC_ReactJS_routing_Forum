@@ -1,11 +1,21 @@
 .infobox {
     position: fixed;
-    right: 2em;
-    top: 2em;
-    padding: 1em 5em 1em 5em;
+    top: 65px;
+    left: 0;
+    text-align: center;
+    background-color: transparent;
     font-size: 1.2em;
+    height: 50px;
+    max-height: 100px;
+    width: 100%;
+    transition: 2ms;
+    padding-top: 15px;
 }
 
 .infobox:hover {
-    background-color: #888888;
+    color: white !important;
+    border-radius: 2px;
+    background-color: #66aade;
+    transition: 2ms;
+    cursor: pointer;
 }
