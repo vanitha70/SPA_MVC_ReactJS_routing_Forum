@@ -116,7 +116,7 @@ export default class AllPostsPage extends Component {
 			<tr className="btn-custom" key={post._id} onClick={() => {
 				browserHistory.push('posts/details/' + post._id)
 			}}>
-				<td>{utilities.showLess(post.title, 20)}</td>
+				<td>{utilities.showLess(post.title, 50)}</td>
 			    <td>{utilities.showLess(post.body, 50)}</td>
 			    <td>{post.author}</td>
 			    <td>{post.category}</td>
