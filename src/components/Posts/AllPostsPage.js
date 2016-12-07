@@ -8,7 +8,7 @@ import Utilities from '../../utilities/utilities'
 let postModule = new Post();
 let viewModule = new View();
 let categoryModule = new Category();
-let utilities = new Utilities()
+let utilities = new Utilities();
 
 
 export default class AllPostsPage extends Component {
@@ -73,7 +73,6 @@ export default class AllPostsPage extends Component {
     }
 
     componentDidMount() {
-    	console.log()
     	let requests = [
             postModule.getAllPosts(),
 	        categoryModule.getAllCategories(),
@@ -88,12 +87,14 @@ export default class AllPostsPage extends Component {
 	    views = views.sort((a, b) => a.postId > b.postId);
 	    for (let post of posts)
 		    post.rating = views.filter(view => view.postId === post._id)[0].rating;
-	    posts.sort((a,b) => b.rating - a.rating);
+	    posts.sort((a,b) => {
+	    	// sort by time of posting (descending)
+		    // then by view count
+	    	return  (b.rating - a.rating) + b._kmd.lmt.localeCompare(a._kmd.lmt);
+	    });
 
 	    this.setState({
-            posts: posts.sort((a, b) => {
-                return b._kmd.lmt.localeCompare(a._kmd.lmt)
-            }),
+            posts: posts,
             pagePosts: posts.slice(this.state.current * this.state.visiblePage, (this.state.current * this.state.visiblePage) + 10),
             total: Math.ceil(posts.length / 10),
             categories: categories
@@ -109,19 +110,19 @@ export default class AllPostsPage extends Component {
             <option key={category._id}>{category.name}</option>
         );
 		let postRows = this.state.pagePosts.map(post =>
-			<tr key={post._id} onClick={() => {
+			<tr className="btn-custom" key={post._id} onClick={() => {
 				browserHistory.push('posts/details/' + post._id)
 			}}>
 				<td>{utilities.showLess(post.title, 20)}</td>
 			    <td>{utilities.showLess(post.body, 50)}</td>
 			    <td>{post.author}</td>
 			    <td>{post.category}</td>
-			    <td>{new Date(Date.parse(post._kmd.lmt)).toLocaleString()}</td>
+			    <td>{utilities.ConvertTime(post._kmd.lmt)}</td>
 			    <td>{post.rating}</td>
 		    </tr>
 		)
 	    let table = (
-		    <table className="table table-hover">
+		    <table className="table table-hover table-bordered">
 			    <thead>
 			    <tr>
 				    <th>Title</th>
