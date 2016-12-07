@@ -1,5 +1,13 @@
 export default class Utilities {
 
+	/**
+	 * Returns the input string cut to desired size
+	 *
+	 * @param {string} text
+	 * @param {number} size - positive integer
+	 *
+	 */
+
     showLess(text, size) {
         if (text.length <= size) {
             return text
@@ -24,17 +32,16 @@ export default class Utilities {
             result += ` ${array[i]}`
         }
     }
+	/**
+	 * Converts kinvey time to bulgarian time eg.
+	 * (day/month/year hours:minutes)
+	 * 13/12/2016 14:34
+	 * @param {string} t
+	 */
 
-	/*
-		Converts kinvey time to bulgarian time eg.
-		(day/month/year hours:minutes)
-		13/12/2016 14:34
-    */
 	ConvertTime(t){
-		// Get your time (using a hard-coded year for parsing purposes)
-		let time = new Date(t);
+		let time = new Date((Date.parse(t)));
 
-		// Output your formatted version (using your DateTime)
 		return `${time.getDay()+4}/${time.getMonth()+1}/${time.getFullYear()} ` +
 			`${time.getHours()}:${('0' + time.getMinutes()).slice(-2)}`;
 	}
